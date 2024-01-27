@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_sale"
+        android:icon="@drawable/gym_svgrepo_com"
+        android:title="@string/title_sale" />
+
+    <item
+        android:id="@+id/navigation_coach"
+        android:icon="@drawable/muscle_svgrepo_com"
+        android:title="@string/title_coach" />
+
+    <item
+        android:id="@+id/navigation_schede"
+        android:icon="@drawable/alt_center_align_svgrepo_com"
+        android:title="@string/title_schede" />
+
+    <item
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/baseline_account_circle_24"
+        android:title="@string/title_account" />
+
+</menu>
