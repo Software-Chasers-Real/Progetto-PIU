@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background">#1C1C1E</color>
+    <color name="colorBorderBottomNav">#2C2C2E</color>
+    <color name="bnv_tab_item_selected">#D0FD3E</color>
 </resources>
