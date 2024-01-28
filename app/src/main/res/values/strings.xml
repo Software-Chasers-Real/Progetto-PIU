@@ -5,4 +5,6 @@
     <string name="title_coach">Coach</string>
     <string name="title_schede">Schede</string>
     <string name="title_account">Account</string>
+    <string name="lbl_fitnessapp">FitnessApp</string>
+    <string name="lbl_accedi">Accedi</string>
 </resources>

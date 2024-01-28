@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Selector che gestisce il colore degli elementi della bottom nav bar-->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:color="@color/bnv_tab_item_selected" />  <!-- Stato selezionato -->
+    <item android:state_checked="true" android:color="@color/lime_A200" />  <!-- Stato selezionato -->
     <item android:color="@color/black" /> <!-- Stato non selezionato -->
 </selector>
