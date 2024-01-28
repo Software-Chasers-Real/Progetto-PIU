@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import it.uniba.dib.piu.softwarechasers.fitnessapp.access.LoginSignupActivity;
+
 public class SplashActivity extends AppCompatActivity {
 
     private boolean loggato = false;
@@ -70,8 +72,8 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startMainActivity() {
-        Log.d("SplashActivity", "MainActivity lanciata");
-        startActivity(new Intent(this, MainActivity.class));
+        Log.d("SplashActivity", "Login lanciata");
+        startActivity(new Intent(this, LoginSignupActivity.class));
         finish();
     }
 }

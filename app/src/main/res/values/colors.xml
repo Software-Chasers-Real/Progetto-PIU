@@ -10,4 +10,5 @@
     <color name="background">#1C1C1E</color>
     <color name="colorBorderBottomNav">#2C2C2E</color>
     <color name="lime_A200">#D0FD3E</color>
+    <color name="red">#FF0000</color>
 </resources>

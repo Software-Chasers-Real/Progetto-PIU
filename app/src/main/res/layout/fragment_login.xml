@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="417.38dp"
+        android:layout_gravity="start"
+        android:scaleType="fitXY"
+        android:src="@drawable/immagine_sfondo_login" />
+
+    <TextView
+        android:id="@+id/label_login_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_email"
+        android:textColor="@color/lime_A200"
+        android:layout_marginStart="52.74dp"
+        android:layout_marginEnd="52.74dp"
+        android:layout_marginTop="40dp"
+        android:visibility="invisible"/>
+    <EditText
+        android:id="@+id/edit_login_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lbl_email"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/bordo_bottom_bianco"
+        android:layout_marginStart="52.74dp"
+        android:layout_marginEnd="52.74dp"
+        android:layout_marginTop="3dp"
+        android:singleLine="true"/>
+
+    <TextView
+        android:id="@+id/label_login_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_password"
+        android:textColor="@color/lime_A200"
+        android:layout_marginStart="52.74dp"
+        android:layout_marginEnd="52.74dp"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"/>
+    <EditText
+        android:id="@+id/edit_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lbl_password"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:inputType="textPassword"
+        android:background="@drawable/bordo_bottom_bianco"
+        android:layout_marginStart="52.74dp"
+        android:layout_marginEnd="52.74dp"
+        android:layout_marginTop="3dp"
+        android:singleLine="true"/>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_accedi"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/lime_A200"
+        android:layout_marginEnd="52.74dp"
+        android:layout_marginTop="33.35dp"
+        android:singleLine="true"
+        android:drawableRight="@drawable/baseline_arrow_right_24"/>
+
+</LinearLayout>

@@ -7,4 +7,13 @@
     <string name="title_account">Account</string>
     <string name="lbl_fitnessapp">FitnessApp</string>
     <string name="lbl_accedi">Accedi</string>
+    <string name="lbl_registrati">Registrati</string>
+    <string name="lbl_email">Email</string>
+    <string name="lbl_password">Password</string>
+    <string name="lbl_conferma_password">Ripeti Password</string>
+    <string name="lbl_inserisci_email">Inserisci la tua email</string>
+    <string name="lbl_inserisci_password">Inserisci la tua password</string>
+    <string name="lbl_password_non_corrispondenti">Le password non corrispondono</string>
+    <string name="lbl_email_non_valida">Email non valida</string>
+    <string name="lbl_password_non_valida">Password non valida</string>
 </resources>

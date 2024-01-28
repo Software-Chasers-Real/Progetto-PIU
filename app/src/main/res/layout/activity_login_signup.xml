@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="start">
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_login_signup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:layout_gravity="top|start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="51.38dp"
+        android:layout_marginStart="35.16dp"
+        android:layout_marginBottom="51.38dp"
+        android:layout_marginEnd="35.16dp"
+        >
+        <TextView
+            android:id="@+id/txtAccedi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_accedi"
+            android:textColor="@color/black"
+            android:paddingBottom="4dp"
+            android:background="@drawable/bordo_bottom_giallo"
+            android:clickable="true"
+            style="@style/txtOpenSansopensanssemibold19"/>
+        <TextView
+            android:id="@+id/txtRegistrati"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/lbl_registrati"
+            android:textColor="@color/black"
+            android:paddingBottom="4dp"
+            android:clickable="true"
+            style="@style/txtOpenSansopensanssemibold19"/>
+
+    </LinearLayout>
+</FrameLayout>
