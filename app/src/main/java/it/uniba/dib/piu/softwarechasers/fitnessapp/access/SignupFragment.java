@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import it.uniba.dib.piu.softwarechasers.fitnessapp.MainActivity;
+import it.uniba.dib.piu.softwarechasers.fitnessapp.informazioniUtente.InfromazioniUtenteActivity;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.R;
 
 public class SignupFragment extends Fragment {
@@ -149,7 +149,7 @@ public class SignupFragment extends Fragment {
                                 if (task.isSuccessful()) {
                                     //Registrazione avvenuta con successo
                                     Toast.makeText(mActivity, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(mActivity, MainActivity.class));
+                                    startActivity(new Intent(mActivity, InfromazioniUtenteActivity.class));
                                     mActivity.finish();
                                 } else {
                                     //Registrazione fallita

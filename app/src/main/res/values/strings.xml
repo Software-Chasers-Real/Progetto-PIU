@@ -16,4 +16,17 @@
     <string name="lbl_password_non_corrispondenti">Le password non corrispondono</string>
     <string name="lbl_email_non_valida">Email non valida</string>
     <string name="lbl_password_non_valida">Password non valida</string>
+    <string name="lbl_parlaci_di_te_stesso">Parlaci di te stesso</string>
+    <string name="lbl_per_darvi_una_m">Per darvi una migliore esperienza abbiamo bisogno di conoscere il vostro genere</string>
+    <string name="lbl_uomo">Uomo</string>
+    <string name="lbl_donna">Donna</string>
+    <string name="lbl_successivo">Successivo</string>
+    <string name="err_seleziona_genere">Seleziona il tuo genere</string>
+    <string name="lbl_quanti_anni_hai">Quanti anni hai?</string>
+    <string name="lbl_aiuta_il_tuo_coach">Questo aiuta i coach a creare il tuo piano personalizzato</string>
+    <string name="lbl_quato_pesi">Quanto pesi?</string>
+    <string name="lbl_inserisci_peso">Inserisci il tuo peso in kilogrammi. Puoi sempre cambiarlo in seguito.</string>
+    <string name="lbl_quanto_sei_alto">Quanto sei alto?</string>
+    <string name="lbl_inserisci_altezza">Inserisci la tua altezza in centimetri. Questo aiuta i coach a creare il tuo piano personalizzato</string>
+    <string name="lbl_inizia">Inizia</string>
 </resources>

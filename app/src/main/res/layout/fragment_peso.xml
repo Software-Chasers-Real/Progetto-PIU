@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36.26dp"
+        android:layout_marginStart="36.26dp"
+        android:layout_marginTop="64.91dp"
+        android:layout_width="match_parent"
+        android:lineSpacingExtra="16.48dp"
+        android:singleLine="true"
+        android:text="@string/lbl_quato_pesi"
+        style="@style/txtAntonregular28"/>
+
+    <TextView
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36.26dp"
+        android:layout_marginStart="36.26dp"
+        android:layout_marginTop="4.51dp"
+        android:layout_width="match_parent"
+        android:lineSpacingExtra="2.2dp"
+        android:text="@string/lbl_inserisci_peso"
+        style="@style/txtActorregular14"/>
+
+    <NumberPicker
+        android:id="@+id/peso_numberPicker"
+        android:layout_width="113dp"
+        android:layout_height="350dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="94.66dp"
+        style="@style/NumberPickerStyle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="end"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_indietro_peso"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="32dp"
+            android:paddingTop="10dp"
+            android:background="@drawable/forma_circolare_bottone_non_selezionato"
+            android:drawableTop="@drawable/left_arrow_icon"
+            android:drawableTint="@color/white"/>
+        <Button
+            android:id="@+id/btn_successivo_peso"
+            android:layout_gravity="bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_successivo"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/lime_A200"
+            android:layout_marginStart="150dp"
+            android:singleLine="true"
+            android:drawableRight="@drawable/baseline_arrow_right_24"/>
+    </LinearLayout>
+
+</LinearLayout>

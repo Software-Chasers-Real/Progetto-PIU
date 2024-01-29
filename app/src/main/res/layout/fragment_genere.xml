@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36.26dp"
+        android:layout_marginStart="36.26dp"
+        android:layout_marginTop="64.91dp"
+        android:layout_width="match_parent"
+        android:lineSpacingExtra="16.48dp"
+        android:singleLine="true"
+        android:text="@string/lbl_parlaci_di_te_stesso"
+        style="@style/txtAntonregular28"/>
+
+    <TextView
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36.26dp"
+        android:layout_marginStart="36.26dp"
+        android:layout_marginTop="4.51dp"
+        android:layout_width="match_parent"
+        android:lineSpacingExtra="2.2dp"
+        android:text="@string/lbl_per_darvi_una_m"
+        style="@style/txtActorregular14"/>
+
+    <TextView
+        android:id="@+id/txt_err_genere"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13.75dp"
+        android:text="@string/err_seleziona_genere"
+        android:textColor="@color/red"
+        android:visibility="invisible"
+        android:layout_gravity="center_horizontal"
+        style="@style/txtActorregular14"/>
+
+
+    <Button
+        android:id="@+id/btn_uomo"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:paddingTop="20dp"
+        android:background="@drawable/forma_circolare_bottone_non_selezionato"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="66dp"
+        android:drawableTop="@drawable/icon_man_sex"
+        android:drawableTint="@color/white"
+        android:text="@string/lbl_uomo"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btn_donna"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:paddingTop="20dp"
+        android:background="@drawable/forma_circolare_bottone_non_selezionato"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32.45dp"
+        android:drawableTop="@drawable/female_symbol_icon"
+        android:drawableTint="@color/white"
+        android:text="@string/lbl_donna"
+        android:textColor="@color/white" />
+    <Button
+        android:id="@+id/btn_successivo_genere"
+        android:layout_gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_successivo"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/lime_A200"
+        android:layout_marginEnd="9.89dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginStart="217.54dp"
+        android:singleLine="true"
+        android:drawableRight="@drawable/baseline_arrow_right_24"/>
+</LinearLayout>
