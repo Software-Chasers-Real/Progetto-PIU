@@ -12,4 +12,6 @@
     <color name="lime_A200">#D0FD3E</color>
     <color name="red">#FF0000</color>
     <color name="red_quasi_rosa">#FD3E3E</color>
+    <color name="black_900">#000000</color>
+
 </resources>

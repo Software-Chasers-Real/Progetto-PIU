@@ -62,7 +62,7 @@
                 android:layout_width="match_parent" android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/txtEditProfile"
+                    android:id="@+id/informazioni_personali"
                     style="@style/txtOpenSansopensanssemibold15"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

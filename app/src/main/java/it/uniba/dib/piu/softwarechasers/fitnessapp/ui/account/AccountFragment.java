@@ -6,11 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -41,8 +45,30 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        // Aggiunta del listener all'immagine per le informazioni personali
+        TextView informazioni_personali = root.findViewById(R.id.informazioni_personali);
+        informazioni_personali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Esegui il logout e passa a un nuovo fragment utilizzando il Navigation Component
+                FirebaseAuth.getInstance().signOut();
+                Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main)
+                        .navigate(R.id.navigation_informazioni_personali);
+            }
+        });
+
         return root;
     }
+
+    // Funzione per mostrare un nuovo fragment
+    private void showFragment(Fragment fragment) {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.nav_host_fragment_activity_main, fragment);
+        transaction.addToBackStack(null);  // Aggiunge la transazione allo stack per consentire il back
+        transaction.commit();
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

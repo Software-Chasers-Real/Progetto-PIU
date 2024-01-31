@@ -45,4 +45,10 @@
         android:name="it.uniba.dib.piu.softwarechasers.fitnessapp.ui.account.AccountFragment"
         android:label="@string/title_account"
         tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/navigation_informazioni_personali"
+        android:name="it.uniba.dib.piu.softwarechasers.fitnessapp.ui.account.InfoPersonaliFragment"
+        android:label="@string/title_informazioni_personali"
+        tools:layout="@layout/fragment_informazioni_personali" />
 </navigation>
