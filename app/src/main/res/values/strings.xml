@@ -32,4 +32,10 @@
     <string name="lbl_aggiungi_scheda">Aggiungi Scheda</string>
     <string name="schede_attive">Schede attive</string>
     <string name="seleziona_una_scheda">Seleziona una scheda</string>
+    <string name="informazioni_personali">Infromazioni personali</string>
+    <string name="abbonamento">Abbonamento</string>
+    <string name="progressi">Progressi</string>
+    <string name="obiettivi">Obiettivi</string>
+    <string name="sign_out">Sign out</string>
+
 </resources>
