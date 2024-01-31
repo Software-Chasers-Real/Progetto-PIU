@@ -19,7 +19,7 @@ import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Utente;
 
 public class MainActivity extends AppCompatActivity {
     private Utente utente;
-    private ArrayList<Scheda> schede;
+    public ArrayList<Scheda> schede;
     private ActivityMainBinding binding;
 
     @Override
