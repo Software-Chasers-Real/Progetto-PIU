@@ -62,8 +62,6 @@ public class EtaFragment extends Fragment {
 
         // Imposta il colore del testo
         changeNumberPickerTextColor(etaPicker, Color.WHITE);
-        // Imposta il colore del divider
-        changeDividerColor(etaPicker, getResources().getColor(R.color.lime_A200));
 
         btnSuccessivo.setOnClickListener(v -> {
             newUtente.setEta(etaPicker.getValue());
@@ -111,23 +109,6 @@ public class EtaFragment extends Fragment {
                     return;
                 }
             }
-        }
-    }
-
-    private void changeDividerColor(NumberPicker numberPicker, int colorResource) {
-        try {
-            // Ottieni la risorsa dei divider
-            Field[] fields = NumberPicker.class.getDeclaredFields();
-            for (Field field : fields) {
-                if (field.getName().equals("mSelectionDivider")) {
-                    field.setAccessible(true);
-                    // Modifica il colore del divider
-                    field.set(numberPicker, getResources().getDrawable(colorResource));
-                    break;
-                }
-            }
-        } catch (IllegalAccessException | IllegalArgumentException e) {
-            return;
         }
     }
 }

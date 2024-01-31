@@ -1,6 +1,7 @@
 package it.uniba.dib.piu.softwarechasers.fitnessapp;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -10,15 +11,40 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.ArrayList;
+
 import it.uniba.dib.piu.softwarechasers.fitnessapp.databinding.ActivityMainBinding;
+import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Scheda;
+import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Utente;
 
 public class MainActivity extends AppCompatActivity {
-
+    private Utente utente;
+    private ArrayList<Scheda> schede;
     private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle ricevutoBundle = getIntent().getExtras();
+
+        if (ricevutoBundle != null) {
+            if(ricevutoBundle.containsKey("utente")){
+                Log.d("MainActivity", "Bundle ricevuto");
+                utente = ricevutoBundle.getParcelable("utente");
+            }else{
+                Log.d("MainActivity", "Bundle ricevuto ma utente non presente");
+            }
+            if(ricevutoBundle.containsKey("schede")) {
+                Log.d("MainActivity", "Bundle ricevuto");
+                schede = ricevutoBundle.getParcelableArrayList("schede");
+            }else{
+                Log.d("MainActivity", "Utente: " + utente.getEmail());
+                schede = ricevutoBundle.getParcelableArrayList("schede");
+            }
+        }else{
+            Log.d("MainActivity", "Bundle non ricevuto");
+        }
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

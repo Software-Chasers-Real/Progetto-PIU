@@ -6,6 +6,18 @@
         <item name="android:fontFamily">@font/nico_moji</item>
         <item name="android:textFontWeight" tools:targetApi="p">400</item>
     </style>
+    <style name="txtOpenSansopensansregular12">
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/lime_A200</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+    <style name="etOpenSansopensanssemibold17">
+        <item name="android:textSize">17dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textFontWeight" tools:targetApi="p">600</item>
+    </style>
     <style name="txtOpenSansopensanssemibold19">
         <item name="android:textSize">19dp</item>
         <item name="android:textColor">@color/white</item>
@@ -22,6 +34,12 @@
         <item name="android:textSize">28dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/anton</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+    <style name="txtOpenSansromanregular22_1">
+        <item name="android:textSize">22dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/open_sans</item>
         <item name="android:textFontWeight" tools:targetApi="p">400</item>
     </style>
     <style name="NumberPickerStyle">

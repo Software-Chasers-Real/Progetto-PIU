@@ -29,4 +29,7 @@
     <string name="lbl_quanto_sei_alto">Quanto sei alto?</string>
     <string name="lbl_inserisci_altezza">Inserisci la tua altezza in centimetri. Questo aiuta i coach a creare il tuo piano personalizzato</string>
     <string name="lbl_inizia">Inizia</string>
+    <string name="lbl_aggiungi_scheda">Aggiungi Scheda</string>
+    <string name="schede_attive">Schede attive</string>
+    <string name="seleziona_una_scheda">Seleziona una scheda</string>
 </resources>
