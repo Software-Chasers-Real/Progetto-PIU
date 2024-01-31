@@ -1,11 +1,17 @@
 package it.uniba.dib.piu.softwarechasers.fitnessapp.model;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +56,12 @@ public class Scheda implements Parcelable {
         // Controlla se l'immagine è stata scritta come byte array
         if (byteArrayLength > 0) {
             // Leggi il byte array e convertilo in un Bitmap
+            byte[] byteArray = new byte[byteArrayLength];
+            in.readByteArray(byteArray);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArrayLength);
 
+            // Crea un Drawable da Bitmap e assegna a immagineScheda
+            immagineScheda = new BitmapDrawable(Resources.getSystem(), bitmap);
         } else {
             // Se l'immagine è nulla, assegna null a immagineScheda
             immagineScheda = null;
@@ -105,15 +116,21 @@ public class Scheda implements Parcelable {
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
+
     public Drawable getImmagineScheda() {
         return immagineScheda;
     }
+
     public void setImmagineScheda(Drawable immagineScheda) {
         this.immagineScheda = immagineScheda;
     }
 
     public String getRiferimentoImmagineScheda() {
         return riferimentoImmagineScheda;
+    }
+
+    public ArrayList<EsercizioSchede> getEsercizi() {
+        return esercizi;
     }
 
     @Override
@@ -132,7 +149,14 @@ public class Scheda implements Parcelable {
         // Controlla se immagineScheda è diverso da null prima di scriverlo nel parcel
         if (immagineScheda != null) {
             // Converti l'immagine in un byte array utilizzando un Bitmap
+            Bitmap bitmap = ((BitmapDrawable) immagineScheda).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
 
+            // Scrivi la lunghezza del byte array e il byte array stesso nel parcel
+            parcel.writeInt(byteArray.length);
+            parcel.writeByteArray(byteArray);
         } else {
             // Se immagineScheda è null, scrivi -1 per indicare che l'immagine è nulla
             parcel.writeInt(-1);

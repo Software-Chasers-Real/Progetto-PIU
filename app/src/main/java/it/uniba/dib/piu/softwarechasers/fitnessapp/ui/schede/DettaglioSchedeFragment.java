@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -24,11 +28,28 @@ import java.io.IOException;
 
 import it.uniba.dib.piu.softwarechasers.fitnessapp.MainActivity;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.R;
+import it.uniba.dib.piu.softwarechasers.fitnessapp.model.EsercizioSchede;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Scheda;
 
-public class DettaglioSchedeFragment extends Fragment {
+public class DettaglioSchedeFragment extends Fragment implements EserciziListener {
     private MainActivity mActvity;
     private Scheda schedaSelezionata;
+    private static int NUMERO_ESERCIZI_SCHEDA = 0;
+
+    private static int NUMERO_IMMAGINI_SCARICATE = 0;
+    private  static final int FECTH_TERMINATO_IMMAGINI = 1;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case FECTH_TERMINATO_IMMAGINI:
+                    visualizzaEsercizi();
+                    break;
+            }
+        }
+    };
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -38,6 +59,7 @@ public class DettaglioSchedeFragment extends Fragment {
         if (bundle != null) {
             schedaSelezionata = bundle.getParcelable("scheda");
             Log.d("SCHEDA", schedaSelezionata.getNome());
+            NUMERO_ESERCIZI_SCHEDA = schedaSelezionata.getEsercizi().size();
         }
     }
 
@@ -67,6 +89,52 @@ public class DettaglioSchedeFragment extends Fragment {
         btnTempo.setText(String.valueOf(schedaSelezionata.getTempo())+" min");
         btnCalorie.setText(String.valueOf(schedaSelezionata.getCalorie())+" kcal");
         txtDescrizione.setText(schedaSelezionata.getDescrizione());
+
+        recuperaImmaginiEsercizi();
+    }
+
+    private void recuperaImmaginiEsercizi(){
+        NUMERO_IMMAGINI_SCARICATE = 0;
+        for(EsercizioSchede esercizio : schedaSelezionata.getEsercizi()){
+            if(esercizio.getImmagine() == null && esercizio.getRiferimentoImmagine() != null){
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference pathReference = storageRef.child(esercizio.getRiferimentoImmagine());
+                try {
+                    final File localFile = File.createTempFile("images", ".jpg");
+                    pathReference.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+                        Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                        Drawable d = new BitmapDrawable(getResources(), bitmap);
+                        esercizio.setImmagine(d);
+                        NUMERO_IMMAGINI_SCARICATE++;
+                        if(NUMERO_IMMAGINI_SCARICATE == NUMERO_ESERCIZI_SCHEDA){
+                            mHandler.sendEmptyMessage(FECTH_TERMINATO_IMMAGINI);
+                        }
+                    }).addOnFailureListener(exception -> {
+                        // Handle any errors
+                        NUMERO_IMMAGINI_SCARICATE++;
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                NUMERO_IMMAGINI_SCARICATE++;
+                if(NUMERO_IMMAGINI_SCARICATE == NUMERO_ESERCIZI_SCHEDA){
+                    mHandler.sendEmptyMessage(FECTH_TERMINATO_IMMAGINI);
+                }
+            }
+        }
+    }
+
+    private void visualizzaEsercizi() {
+        //ottieni il riferimento alla recycler view
+        RecyclerView recyclerView = getView().findViewById(R.id.recycler_dettaglio_scheda_esercizi);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mActvity.getApplicationContext()));
+        recyclerView.setAdapter(new EserciziAdapter(mActvity.getApplicationContext(), schedaSelezionata.getEsercizi(), DettaglioSchedeFragment.this));
+        Log.d("DettaglioSchedaFragment", "EserciziVisualizzati: "+schedaSelezionata.getEsercizi().size());
+    }
+
+    @Override
+    public void onItemClick(int position) {
 
     }
 }

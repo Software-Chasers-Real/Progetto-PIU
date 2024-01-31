@@ -160,9 +160,10 @@ public class SplashActivity extends AppCompatActivity {
                             Log.d("SplashActivity", "Esercizi: " + esercizi.size());
                             for(Map<String, String> esercizio: esercizi){
                                 eserciziSchede.add(new EsercizioSchede(esercizio.get("nome"),
-                                        esercizio.get("serie_ripetizioni"),
                                         esercizio.get("descrizione"),
-                                        esercizio.get("riposo")));
+                                        esercizio.get("serie_ripetizioni"),
+                                        esercizio.get("riposo"),
+                                        esercizio.get("immagine")));
 
                             }
 

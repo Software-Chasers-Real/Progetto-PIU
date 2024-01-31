@@ -58,6 +58,12 @@
         <item name="colorControlNormal">#FF0000</item> <!-- Imposta il colore desiderato per le righe normali -->
         <item name="colorControlActivated">#00FF00</item> <!-- Imposta il colore desiderato per la riga selezionata -->
     </style>
+    <style name="txtOpenSansopensansregular13">
+        <item name="android:textSize">@dimen/_13pxh</item>
+        <item name="android:textColor">@color/lime_A200</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
 
     <style name="txtOpenSansopensanssemibold15">
         <item name="android:textSize">@dimen/_16pxh</item>
