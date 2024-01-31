@@ -37,5 +37,9 @@
     <string name="progressi">Progressi</string>
     <string name="obiettivi">Obiettivi</string>
     <string name="sign_out">Sign out</string>
+    <string name="lbl_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a massa lobortis, fringilla eros ac, pharetra dolor. Sed gravida sem sed tincidunt posuere. Ut lacinia nunc lobortis nibh facilisis tincidunt. Mauris consectetur non urna in dictum. Mauris at pretium nibh, at ullamcorper leo. Donec consectetur libero sapien, sed congue mi varius ac. Proin ornare non tortor eu ornare.</string>
+    <string name="lbl_esercizi">Esercizi</string>
+    <string name="aggiungi_scheda">Aggiungi Scheda</string>
+    <string name="dettaglio_scheda">Dettaglio Scheda</string>
 
 </resources>

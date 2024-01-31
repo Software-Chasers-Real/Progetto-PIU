@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 Log.d("MainActivity", "Bundle ricevuto ma utente non presente");
             }
+
             if(ricevutoBundle.containsKey("schede")) {
                 Log.d("MainActivity", "Bundle ricevuto");
                 schede = ricevutoBundle.getParcelableArrayList("schede");
             }else{
                 Log.d("MainActivity", "Utente: " + utente.getEmail());
-                schede = ricevutoBundle.getParcelableArrayList("schede");
             }
         }else{
             Log.d("MainActivity", "Bundle non ricevuto");
@@ -62,4 +62,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
+    //metodo che permette di tronare al fragment precedente
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        return navController.navigateUp();
+    }
 }

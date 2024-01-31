@@ -33,6 +33,11 @@
         android:name="it.uniba.dib.piu.softwarechasers.fitnessapp.ui.schede.AggiungiSchedeFragment"
         android:label="@string/lbl_aggiungi_scheda"
         tools:layout="@layout/fragment_aggiungi_schede_utente" />
+    <fragment
+        android:id="@+id/navigation_dettaglio_schede"
+        android:name="it.uniba.dib.piu.softwarechasers.fitnessapp.ui.schede.DettaglioSchedeFragment"
+        android:label="@string/dettaglio_scheda"
+        tools:layout="@layout/fragment_dettaglio_scheda" />
 
 
     <fragment

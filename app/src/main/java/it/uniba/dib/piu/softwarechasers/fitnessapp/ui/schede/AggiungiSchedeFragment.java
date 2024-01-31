@@ -6,12 +6,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,74 +35,96 @@ import java.util.concurrent.atomic.AtomicReference;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.MainActivity;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.R;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Esercizio;
+import it.uniba.dib.piu.softwarechasers.fitnessapp.model.EsercizioSchede;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Scheda;
 
-public class AggiungiSchedeFragment extends Fragment {
-    private MainActivity mainActivityGenitore;
-    private List<Scheda> schede;
+public class AggiungiSchedeFragment extends Fragment implements SchedeListener {
+    private MainActivity mActvity;
+    static View VIEW;
+    static final int FECTH_TERMINATO = 1;
+    static int NUMERO_SCHEDE;
+    static int NUMERO_IMMGINI_SCARICATE = 0;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case FECTH_TERMINATO:
+                    visualizzaSchede();
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mainActivityGenitore = (MainActivity) getActivity();
+        mActvity = (MainActivity) getActivity();
+        NUMERO_SCHEDE = mActvity.schede.size();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        schede = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_aggiungi_schede_utente, container, false);
+        VIEW = view;
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        NUMERO_IMMGINI_SCARICATE = 0;
+        for (Scheda scheda : mActvity.schede) {
+            if (scheda.getImmagineScheda() != null) {
+                NUMERO_IMMGINI_SCARICATE++;
+                if (NUMERO_IMMGINI_SCARICATE == NUMERO_SCHEDE) {
+                    mHandler.sendEmptyMessage(FECTH_TERMINATO);
+                }
+            } else {
+                StorageReference storageRef = storage.getReference(scheda.getRiferimentoImmagineScheda());
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("schede")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for(QueryDocumentSnapshot document: task.getResult()){
-                            Map<String, Object> scheda = document.getData();
-                            FirebaseStorage storage = FirebaseStorage.getInstance();
-                            StorageReference storageRef = storage.getReference(scheda.get("image_sfondo").toString());
-                            Log.d("SchedeAdapter", "URL immagine: " + storageRef.getDownloadUrl().toString());
-                            File localFile = null;
-                            try {
-                                localFile = File.createTempFile("images", ".jpg");
+                File localFile = null;
+                try {
+                    localFile = File.createTempFile("images", ".jpg");
 
-                                File finalLocalFile = localFile;
-                                storageRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
-                                    // Immagine scaricata
-                                    Log.d("SchedeAdapter", "Immagine scaricata");
-                                    Bitmap myBitmap = BitmapFactory.decodeFile(finalLocalFile.getAbsolutePath());
-                                    Drawable myDrawable = new BitmapDrawable(getResources(), myBitmap);
-                                    /*schede.add(new Scheda(
-                                            scheda.get("nome").toString(),
-                                            Integer.valueOf(scheda.get("tempo").toString()),
-                                            Integer.valueOf(scheda.get("calorie").toString()),
-                                            scheda.get("descrizione").toString(),
-                                            (List<Map<Esercizio, String>>) scheda.get("esercizi"),
-                                            myDrawable
-                                    ));*/
-
-                                    RecyclerView recyclerView = view.findViewById(R.id.schede_disponibili_recyclerView);
-                                    recyclerView.setLayoutManager(new LinearLayoutManager(mainActivityGenitore.getApplicationContext()));
-                                    recyclerView.setAdapter(new SchedeAdapter(mainActivityGenitore.getApplicationContext(), schede));
-                                }).addOnFailureListener(exception -> {
-                                    // Immagine non scaricata
-                                    Log.d("SchedeAdapter", "Immagine non scaricata");
-                                });
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
+                    File finalLocalFile = localFile;
+                    storageRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+                        // Immagine scaricata
+                        Log.d("SchedeAdapter", "Immagine scaricata par o pesc");
+                        Bitmap myBitmap = BitmapFactory.decodeFile(finalLocalFile.getAbsolutePath());
+                        Drawable myDrawable = new BitmapDrawable(getResources(), myBitmap);
+                        scheda.setImmagineScheda(myDrawable);
+                        NUMERO_IMMGINI_SCARICATE++;
+                        if (NUMERO_IMMGINI_SCARICATE == NUMERO_SCHEDE) {
+                            mHandler.sendEmptyMessage(FECTH_TERMINATO);
                         }
+                    }).addOnFailureListener(exception -> {
+                        // Immagine non scaricata
+                        Log.d("SchedeAdapter", "Immagine non scaricata par a uallr");
+                        NUMERO_IMMGINI_SCARICATE++;
+                    });
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
 
-                    } else {
-                        Log.d("AggiungiSchedeFragment", "Error getting documents: ", task.getException());
-                    }
-                });
+            return view;
+        }
 
-        return view;
+        private void visualizzaSchede () {
+            RecyclerView recyclerView = VIEW.findViewById(R.id.schede_disponibili_recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(mActvity.getApplicationContext()));
+            recyclerView.setAdapter(new SchedeAdapter(mActvity.getApplicationContext(), mActvity.schede, AggiungiSchedeFragment.this));
+        }
+
+        // Metodo chiamato quando un elemento della RecyclerView viene cliccato
+        @Override
+        public void onItemClick ( int position){
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("scheda", mActvity.schede.get(position));
+            Log.d("HomeFragmentLogopedista", "Paziente passato: " + mActvity.schede.get(position).getNome());
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.navigation_dettaglio_schede, bundle);
+        }
     }
-}

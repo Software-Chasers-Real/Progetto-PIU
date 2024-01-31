@@ -2,23 +2,28 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scheda_cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="20dp">
+    app:cardCornerRadius="20dp"
+    android:layout_marginTop="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/scheda_card"
         android:layout_width="match_parent"
-        android:layout_height="175.79dp"
+        android:layout_height="160dp"
         android:background="@drawable/custom_schede"
         android:orientation="vertical">
+
         <ImageView
+            android:id="@+id/sfondo_scheda"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:id="@+id/sfondo_scheda"
-            android:src="@drawable/immagine_sfondo_signup"/>
+            android:src="@drawable/immagine_sfondo_signup"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="16dp" />
 
         <TextView
             android:id="@+id/titolo_scheda"
@@ -26,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="84dp"
             android:text="Titolo scheda"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

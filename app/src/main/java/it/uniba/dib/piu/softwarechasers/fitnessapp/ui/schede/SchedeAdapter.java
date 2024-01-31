@@ -34,31 +34,25 @@ public class SchedeAdapter extends RecyclerView.Adapter<SchedeHolderView>{
 
     List<Scheda> items;
 
-    //private ClickFigliListener clickFigliListener;
+    private SchedeListener clickSchedeListener;
 
     // Costruttore che riceve la lista di dati e un'istanza di ClickListener
-    /*
-    public SchedeAdapter(Context context, List<Scheda> items, ClickFigliListener listener) {
+    public SchedeAdapter(Context context, List<Scheda> items, SchedeListener listener) {
         this.context = context;
         this.items = items;
-        this.clickFigliListener = listener;
-    }
-    */
-    public SchedeAdapter(Context context, List<Scheda> items) {
-        this.context = context;
-        this.items = items;
+        this.clickSchedeListener = listener;
     }
     @NonNull
     @Override
     public SchedeHolderView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SchedeHolderView(LayoutInflater.from(context).inflate(R.layout.item_schede, parent, false));
+        return new SchedeHolderView(LayoutInflater.from(context).inflate(R.layout.item_schede, parent, false), clickSchedeListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SchedeHolderView holder, int position) {
         holder.nomeScheda.setText(items.get(position).getNome());// Create a storage reference from our app
-        holder.calorieScheda.setText(String.valueOf(items.get(position).getCalorie()));
-        holder.durataScheda.setText(String.valueOf(items.get(position).getTempo()));
+        holder.calorieScheda.setText(String.valueOf(items.get(position).getCalorie())+" kcal");
+        holder.durataScheda.setText(String.valueOf(items.get(position).getTempo())+" min");
         holder.imageView.setImageDrawable(items.get(position).getImmagineScheda());
     }
 

@@ -47,7 +47,6 @@ public class SplashActivity extends AppCompatActivity {
     private boolean mIsDoneSchede;
     private FirebaseUser currentUser;
     private FirebaseFirestore db;
-    static int numeroEsercizi = 0;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -69,21 +68,6 @@ public class SplashActivity extends AppCompatActivity {
         }
     };
 
-    @SuppressLint("HandlerLeak")
-    private Handler mHandlerFecthSchede = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case FECTH_TERMINATO:
-                    if (fecthCompletato) {
-                        mIsDoneSchede = true;
-                        startMainActivity();
-                    }
-                    break;
-            }
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +78,7 @@ public class SplashActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
         db = FirebaseFirestore.getInstance();
         utente = new Utente();
+        schede = new ArrayList<>();
         fetchDataFromDataBase();
     }
 
@@ -119,14 +104,57 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+    //metodo che verifica se l'utente ha completato il profilo con le informazioni necessarie
+    //sesso, peso, altezza, anni
+    private void verificaCompletamentoProfilo(String uid) {
+        //verifica che nel database di firestore esiste il documento con uid nella raccolta utenti
+        //se esiste allora l'utente ha completato il profilo
+        //altrimenti l'utente deve completare il profilo
+        db.collection("utenti")
+                .document(uid)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult().exists()) {
+                            //l'utente ha completato il profilo
+                            loggato = true;
+                            profiloCompletato = true;
+                            popolaOggettoUtente(task.getResult());
+                            fetchSchede();
+                        } else {
+                            //l'utente non ha completato il profilo
+                            loggato = true;
+                            profiloCompletato = false;
+                            fetchSchede();
+                        }
+                    } else {
+                        //stampa nel log un messaggio di errore
+                        Log.d("SplashActivity", "Task fallito");
+                        loggato = false;
+                        profiloCompletato = false;
+                        startMainActivity();
+                    }
+                });
+    }
+
+    //metodo che recupera le informazioni dell'utente dal database
+    private void popolaOggettoUtente(DocumentSnapshot document) {
+        Map<String, Object> nuovoUtente = document.getData();
+        utente.setEmail(nuovoUtente.get("email").toString());
+        utente.setAltezza(Float.valueOf(nuovoUtente.get("altezza").toString()));
+        utente.setPeso(Float.valueOf(nuovoUtente.get("peso").toString()));
+        utente.setGenere(nuovoUtente.get("genere").toString());
+        utente.setEta(Integer.valueOf(nuovoUtente.get("eta").toString()));
+    }
+
     private void fetchSchede() {
         db.collection("schede")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        schede = new ArrayList<>();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Map<String, Object> scheda = document.getData();
+
                             ArrayList<Map<String, String>> esercizi = (ArrayList<Map<String, String>>) scheda.get("Esercizi");
                             ArrayList<EsercizioSchede> eserciziSchede = new ArrayList<>();
                             Log.d("SplashActivity", "Esercizi: " + esercizi.size());
@@ -137,6 +165,7 @@ public class SplashActivity extends AppCompatActivity {
                                         esercizio.get("riposo")));
 
                             }
+
                             schede.add(new Scheda(
                                     scheda.get("nome").toString(),
                                     Integer.valueOf(scheda.get("tempo").toString()),
@@ -155,50 +184,6 @@ public class SplashActivity extends AppCompatActivity {
                         mHandler.sendEmptyMessage(FECTH_TERMINATO);
                     }
                 });
-    }
-
-
-    //metodo che verifica se l'utente ha completato il profilo con le informazioni necessarie
-    //sesso, peso, altezza, anni
-    private void verificaCompletamentoProfilo(String uid) {
-        //verifica che nel database di firestore esiste il documento con uid nella raccolta utenti
-        //se esiste allora l'utente ha completato il profilo
-        //altrimenti l'utente deve completare il profilo
-        db.collection("utenti")
-                .document(uid)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        if (task.getResult().exists()) {
-                            //l'utente ha completato il profilo
-                            loggato = true;
-                            profiloCompletato = true;
-                            recuperaInformazioniUtente(task.getResult());
-                            fetchSchede();
-                        } else {
-                            //l'utente non ha completato il profilo
-                            loggato = true;
-                            profiloCompletato = false;
-                            fetchSchede();
-                        }
-                    } else {
-                        //stampa nel log un messaggio di errore
-                        Log.d("SplashActivity", "Task fallito");
-                        loggato = false;
-                        profiloCompletato = false;
-                        fetchSchede();
-                    }
-                });
-    }
-
-    //metodo che recupera le informazioni dell'utente dal database
-    private void recuperaInformazioniUtente(DocumentSnapshot document) {
-        Map<String, Object> nuovoUtente = document.getData();
-        utente.setEmail(nuovoUtente.get("email").toString());
-        utente.setAltezza(Float.valueOf(nuovoUtente.get("altezza").toString()));
-        utente.setPeso(Float.valueOf(nuovoUtente.get("peso").toString()));
-        utente.setGenere(nuovoUtente.get("genere").toString());
-        utente.setEta(Integer.valueOf(nuovoUtente.get("eta").toString()));
     }
 
     private void startMainActivity() {

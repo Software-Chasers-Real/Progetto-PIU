@@ -108,6 +108,13 @@ public class Scheda implements Parcelable {
     public Drawable getImmagineScheda() {
         return immagineScheda;
     }
+    public void setImmagineScheda(Drawable immagineScheda) {
+        this.immagineScheda = immagineScheda;
+    }
+
+    public String getRiferimentoImmagineScheda() {
+        return riferimentoImmagineScheda;
+    }
 
     @Override
     public int describeContents() {
