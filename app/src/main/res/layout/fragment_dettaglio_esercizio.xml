@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/dettaglio_nome_esercizio"
+        style="@style/txtAntonregular32"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/nome_esercizio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/editText"
+        style="@style/txtOpenSansopensansregular20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/descrizione"
+        app:layout_constraintTop_toBottomOf="@+id/dettaglio_nome_esercizio" />
+
+    <TextView
+        android:id="@+id/dettaglio_esercizio_descrizione"
+        style="@style/txtOpenSansopensansregular14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/lbl_lorem_ipsum"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/editText2"
+        style="@style/txtOpenSansopensansregular20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/video_spiegazione"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dettaglio_esercizio_descrizione" />
+
+    <WebView
+        android:id="@+id/video_esercizio"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

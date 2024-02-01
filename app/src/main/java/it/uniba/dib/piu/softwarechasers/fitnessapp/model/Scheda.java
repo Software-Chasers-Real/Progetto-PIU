@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Scheda implements Parcelable {
+    private String idDatabase;
     private String nome;
     private int Tempo;
     private int Calorie;
@@ -25,25 +26,28 @@ public class Scheda implements Parcelable {
     private Drawable immagineScheda;
     private ArrayList<EsercizioSchede> esercizi;
 
-    public Scheda(String nome, int tempo, int calorie, String descrizione, String riferimentoImmagineScheda, ArrayList<EsercizioSchede> esercizi) {
+    public Scheda(String nome, int tempo, int calorie, String descrizione, String riferimentoImmagineScheda, ArrayList<EsercizioSchede> esercizi,String idDatabase) {
         this.nome = nome;
         Tempo = tempo;
         Calorie = calorie;
         this.descrizione = descrizione;
         this.riferimentoImmagineScheda = riferimentoImmagineScheda;
         this.esercizi = esercizi;
+        this.idDatabase = idDatabase;
     }
 
-    public Scheda(String nome, int tempo, int calorie, String descrizione, ArrayList<EsercizioSchede> esercizi, Drawable immagineScheda) {
+    public Scheda(String nome, int tempo, int calorie, String descrizione, ArrayList<EsercizioSchede> esercizi, Drawable immagineScheda, String idDatabase) {
         this.nome = nome;
         Tempo = tempo;
         Calorie = calorie;
         this.descrizione = descrizione;
         this.esercizi = esercizi;
         this.immagineScheda = immagineScheda;
+        this.idDatabase = idDatabase;
     }
 
     protected Scheda(Parcel in) {
+        idDatabase = in.readString();
         nome = in.readString();
         Tempo = in.readInt();
         Calorie = in.readInt();
@@ -84,6 +88,14 @@ public class Scheda implements Parcelable {
             return new Scheda[size];
         }
     };
+
+    public String getIdDatabase() {
+        return idDatabase;
+    }
+
+    public void setIdDatabase(String idDatabase) {
+        this.idDatabase = idDatabase;
+    }
 
     public String getNome() {
         return nome;
@@ -133,6 +145,7 @@ public class Scheda implements Parcelable {
         return esercizi;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -140,6 +153,7 @@ public class Scheda implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(idDatabase);
         parcel.writeString(nome);
         parcel.writeInt(Tempo);
         parcel.writeInt(Calorie);

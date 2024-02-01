@@ -59,12 +59,30 @@
         <item name="android:fontFamily">@font/open_sans</item>
         <item name="android:textFontWeight" tools:targetApi="p">400</item>
     </style>
+    <style name="txtAntonregular32">
+        <item name="android:textSize">32dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/anton</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+    <style name="txtOpenSansromanregular29">
+        <item name="android:textSize">29dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
     <style name="NumberPickerStyle">
         <item name="colorControlNormal">#FF0000</item> <!-- Imposta il colore desiderato per le righe normali -->
         <item name="colorControlActivated">#00FF00</item> <!-- Imposta il colore desiderato per la riga selezionata -->
     </style>
     <style name="txtOpenSansopensansregular13">
         <item name="android:textSize">@dimen/_13pxh</item>
+        <item name="android:textColor">@color/lime_A200</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+    <style name="txtOpenSansopensansregular20">
+        <item name="android:textSize">20dp</item>
         <item name="android:textColor">@color/lime_A200</item>
         <item name="android:fontFamily">@font/open_sans</item>
         <item name="android:textFontWeight" tools:targetApi="p">400</item>

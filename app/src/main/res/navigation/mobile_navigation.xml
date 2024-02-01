@@ -38,6 +38,11 @@
         android:name="it.uniba.dib.piu.softwarechasers.fitnessapp.ui.schede.DettaglioSchedeFragment"
         android:label="@string/dettaglio_scheda"
         tools:layout="@layout/fragment_dettaglio_scheda" />
+    <fragment
+        android:id="@+id/navigation_dettaglio_esercizio"
+        android:name="it.uniba.dib.piu.softwarechasers.fitnessapp.ui.schede.DettaglioEsercizioFragment"
+        android:label="@string/dettaglio_esercizio"
+        tools:layout="@layout/fragment_dettaglio_esercizio" />
 
 
     <fragment

@@ -17,19 +17,22 @@ public class EsercizioSchede extends Esercizio implements Parcelable {
     private String riposo;
     private String riferimentoImmagine;
     private Drawable immagine;
+    private String idYouTubeVideo;
 
-    public EsercizioSchede(String nome, String descrizione, String serie_ripetizioni, String riposo,String riferimentoImmagine) {
+    public EsercizioSchede(String nome, String descrizione, String serie_ripetizioni, String riposo,String riferimentoImmagine,String idYouTubeVideo) {
         super(nome, descrizione);
         this.serie_ripetizioni = serie_ripetizioni;
         this.riposo = riposo;
         this.riferimentoImmagine = riferimentoImmagine;
+        this.idYouTubeVideo = idYouTubeVideo;
     }
 
-    public EsercizioSchede(String nome, String descrizione, String serie_ripetizioni, String riposo,Drawable immagine) {
+    public EsercizioSchede(String nome, String descrizione, String serie_ripetizioni, String riposo,Drawable immagine, String idYouTubeVideo) {
         super(nome, descrizione);
         this.serie_ripetizioni = serie_ripetizioni;
         this.riposo = riposo;
         this.immagine = immagine;
+        this.idYouTubeVideo = idYouTubeVideo;
     }
 
 
@@ -54,6 +57,8 @@ public class EsercizioSchede extends Esercizio implements Parcelable {
             // Se l'immagine è nulla, assegna null a immagineScheda
             immagine = null;
         }
+
+        idYouTubeVideo = in.readString();
     }
 
     public static final Creator<EsercizioSchede> CREATOR = new Creator<EsercizioSchede>() {
@@ -96,6 +101,14 @@ public class EsercizioSchede extends Esercizio implements Parcelable {
         return immagine;
     }
 
+    public String getIdYouTubeVideo() {
+        return idYouTubeVideo;
+    }
+
+    public void setIdYouTubeVideo(String idYouTubeVideo) {
+        this.idYouTubeVideo = idYouTubeVideo;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -124,5 +137,7 @@ public class EsercizioSchede extends Esercizio implements Parcelable {
             // Se immagineScheda è null, scrivi -1 per indicare che l'immagine è nulla
             parcel.writeInt(-1);
         }
+
+        parcel.writeString(idYouTubeVideo);
     }
 }

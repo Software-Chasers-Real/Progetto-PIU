@@ -145,6 +145,11 @@ public class SplashActivity extends AppCompatActivity {
         utente.setPeso(Float.valueOf(nuovoUtente.get("peso").toString()));
         utente.setGenere(nuovoUtente.get("genere").toString());
         utente.setEta(Integer.valueOf(nuovoUtente.get("eta").toString()));
+        if(((ArrayList<String>) nuovoUtente.get("schede")).get(0) == ""){
+            utente.setIdSchede(new ArrayList<String>());
+        }else{
+            utente.setIdSchede((ArrayList<String>) nuovoUtente.get("schede"));
+        }
     }
 
     private void fetchSchede() {
@@ -163,7 +168,8 @@ public class SplashActivity extends AppCompatActivity {
                                         esercizio.get("descrizione"),
                                         esercizio.get("serie_ripetizioni"),
                                         esercizio.get("riposo"),
-                                        esercizio.get("immagine")));
+                                        esercizio.get("immagine"),
+                                        esercizio.get("video").toString()));
 
                             }
 
@@ -173,7 +179,8 @@ public class SplashActivity extends AppCompatActivity {
                                     Integer.valueOf(scheda.get("calorie").toString()),
                                     scheda.get("descrizione").toString(),
                                     scheda.get("image_sfondo").toString(),
-                                    eserciziSchede
+                                    eserciziSchede,
+                                    document.getId().toString()
                             ));
                         }
                         fecthCompletato = true;

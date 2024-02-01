@@ -5,22 +5,27 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Utente implements Parcelable {
     private String email;
     private String genere;
     private int eta;
     private float peso;
     private float altezza;
+    private List<String> idSchede;
 
     public Utente() {
     }
 
-    public Utente(String email, String genere, int eta, float peso, float altezza) {
+    public Utente(String email, String genere, int eta, float peso, float altezza, List<String> idSchede){
         this.email = email;
         this.genere = genere;
         this.eta = eta;
         this.peso = peso;
         this.altezza = altezza;
+        this.idSchede = idSchede;
     }
 
     protected Utente(Parcel in) {
@@ -29,6 +34,12 @@ public class Utente implements Parcelable {
         eta = in.readInt();
         peso = in.readFloat();
         altezza = in.readFloat();
+
+        byte schedaPresente = in.readByte();
+        idSchede = new ArrayList<>();
+        if(schedaPresente == (byte) 1){
+            in.readStringList(idSchede);
+        }
     }
 
     public static final Creator<Utente> CREATOR = new Creator<Utente>() {
@@ -83,6 +94,14 @@ public class Utente implements Parcelable {
         this.altezza = altezza;
     }
 
+    public List<String> getIdSchede() {
+        return idSchede;
+    }
+
+    public void setIdSchede(List<String> idSchede) {
+        this.idSchede = idSchede;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -95,5 +114,12 @@ public class Utente implements Parcelable {
         parcel.writeInt(eta);
         parcel.writeFloat(peso);
         parcel.writeFloat(altezza);
+
+        if(idSchede != null) {
+            parcel.writeByte((byte) 1);
+            parcel.writeStringList(idSchede);
+        }else{
+            parcel.writeByte((byte) 0);
+        }
     }
 }

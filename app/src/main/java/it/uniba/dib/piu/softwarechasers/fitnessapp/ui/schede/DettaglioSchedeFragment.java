@@ -15,11 +15,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -38,6 +45,7 @@ public class DettaglioSchedeFragment extends Fragment implements EserciziListene
 
     private static int NUMERO_IMMAGINI_SCARICATE = 0;
     private  static final int FECTH_TERMINATO_IMMAGINI = 1;
+    private boolean bottoneVisibile = true;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -60,6 +68,11 @@ public class DettaglioSchedeFragment extends Fragment implements EserciziListene
             schedaSelezionata = bundle.getParcelable("scheda");
             Log.d("SCHEDA", schedaSelezionata.getNome());
             NUMERO_ESERCIZI_SCHEDA = schedaSelezionata.getEsercizi().size();
+            if(bundle.containsKey("bottone")){
+                if(bundle.getBoolean("bottone") == false){
+                    bottoneVisibile = false;
+                }
+            }
         }
     }
 
@@ -83,6 +96,35 @@ public class DettaglioSchedeFragment extends Fragment implements EserciziListene
         Button btnTempo = view.findViewById(R.id.tempo_dettaglio_bottone);
         Button btnCalorie = view.findViewById(R.id.calorie_dettaglio_bottone);
         TextView txtDescrizione = view.findViewById(R.id.descr_dettaglio_scheda);
+        ExtendedFloatingActionButton fabAggiungiScheda = view.findViewById(R.id.fab_aggiungi_scheda);
+        if(bottoneVisibile == false){
+            fabAggiungiScheda.setVisibility(View.GONE);
+        }else{
+            fabAggiungiScheda.setOnClickListener(v -> {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                if(mActvity.utente.getIdSchede().isEmpty()){
+                    mActvity.utente.getIdSchede().add(schedaSelezionata.getIdDatabase());
+                }else if(mActvity.utente.getIdSchede().contains(schedaSelezionata.getIdDatabase()) == false){
+                    mActvity.utente.getIdSchede().add(schedaSelezionata.getIdDatabase());
+                }else{
+                    Toast.makeText(mActvity.getApplicationContext(), "Scheda già presente", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                db.collection("utenti")
+                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .update("schede", mActvity.utente.getIdSchede()).addOnSuccessListener(aVoid -> {
+                                    Log.d("DettaglioSchedaFragment", "Scheda aggiunta");
+                                    Toast.makeText(mActvity.getApplicationContext(), "Scheda aggiunta con successo", Toast.LENGTH_SHORT).show();
+                                    NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                                    navController.navigate(R.id.navigation_schede);
+                                }
+                        ).addOnFailureListener(e -> {
+                            Log.d("DettaglioSchedaFragment", "Errore aggiunta scheda");
+                            Toast.makeText(mActvity.getApplicationContext(), "Errore aggiunta scheda", Toast.LENGTH_SHORT).show();
+                        });
+            });
+        }
+
 
         sfondo.setImageDrawable(schedaSelezionata.getImmagineScheda());
         txtNomeScheda.setText(schedaSelezionata.getNome());
@@ -97,6 +139,7 @@ public class DettaglioSchedeFragment extends Fragment implements EserciziListene
         NUMERO_IMMAGINI_SCARICATE = 0;
         for(EsercizioSchede esercizio : schedaSelezionata.getEsercizi()){
             if(esercizio.getImmagine() == null && esercizio.getRiferimentoImmagine() != null){
+                Log.d("DettaglioSchedaFragment", "Scarico immagine");
                 StorageReference storageRef = FirebaseStorage.getInstance().getReference();
                 StorageReference pathReference = storageRef.child(esercizio.getRiferimentoImmagine());
                 try {
@@ -112,11 +155,15 @@ public class DettaglioSchedeFragment extends Fragment implements EserciziListene
                     }).addOnFailureListener(exception -> {
                         // Handle any errors
                         NUMERO_IMMAGINI_SCARICATE++;
+                        if(NUMERO_IMMAGINI_SCARICATE == NUMERO_ESERCIZI_SCHEDA){
+                            mHandler.sendEmptyMessage(FECTH_TERMINATO_IMMAGINI);
+                        }
                     });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }else{
+                Log.d("DettaglioSchedaFragment", "Immagine già scaricata");
                 NUMERO_IMMAGINI_SCARICATE++;
                 if(NUMERO_IMMAGINI_SCARICATE == NUMERO_ESERCIZI_SCHEDA){
                     mHandler.sendEmptyMessage(FECTH_TERMINATO_IMMAGINI);
@@ -135,6 +182,9 @@ public class DettaglioSchedeFragment extends Fragment implements EserciziListene
 
     @Override
     public void onItemClick(int position) {
-
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("esercizio", schedaSelezionata.getEsercizi().get(position));
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+        navController.navigate(R.id.navigation_dettaglio_esercizio, bundle);
     }
 }
