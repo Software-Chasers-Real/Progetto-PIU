@@ -3,13 +3,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="417.38dp"
-        android:layout_gravity="start"
+        android:layout_height="300dp"
+        android:layout_weight="1"
         android:scaleType="fitXY"
         android:src="@drawable/immagine_sfondo_signup" />
 
+    <TextView
+        android:id="@+id/label_signup_nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_nome"
+        android:textColor="@color/lime_A200"
+        android:layout_marginStart="52.74dp"
+        android:layout_marginEnd="52.74dp"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"/>
+
+    <EditText
+        android:id="@+id/edit_signup_nome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lbl_nome"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:inputType="text"
+        android:background="@drawable/bordo_bottom_bianco"
+        android:layout_marginStart="52.74dp"
+        android:layout_marginEnd="52.74dp"
+        android:layout_marginTop="3dp"
+        android:singleLine="true"/>
+
+    <TextView
+        android:id="@+id/label_signup_cognome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_cognome"
+        android:textColor="@color/lime_A200"
+        android:layout_marginStart="52.74dp"
+        android:layout_marginEnd="52.74dp"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"/>
+
+    <EditText
+        android:id="@+id/edit_signup_cognome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lbl_cognome"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:inputType="text"
+        android:background="@drawable/bordo_bottom_bianco"
+        android:layout_marginStart="52.74dp"
+        android:layout_marginEnd="52.74dp"
+        android:layout_marginTop="3dp"
+        android:singleLine="true"/>
+
+    <!-- Existing code for email -->
     <TextView
         android:id="@+id/label_signup_email"
         android:layout_width="wrap_content"
@@ -18,7 +70,7 @@
         android:textColor="@color/lime_A200"
         android:layout_marginStart="52.74dp"
         android:layout_marginEnd="52.74dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:visibility="invisible"/>
 
     <EditText
@@ -35,6 +87,7 @@
         android:layout_marginTop="3dp"
         android:singleLine="true"/>
 
+    <!-- Existing code for password -->
     <TextView
         android:id="@+id/label_signup_password"
         android:layout_width="wrap_content"
@@ -60,6 +113,7 @@
         android:layout_marginTop="3dp"
         android:singleLine="true"/>
 
+    <!-- Existing code for confirm password -->
     <TextView
         android:id="@+id/label_signup_confirm_password"
         android:layout_width="wrap_content"
@@ -70,6 +124,7 @@
         android:layout_marginEnd="52.74dp"
         android:layout_marginTop="20dp"
         android:visibility="invisible"/>
+
     <EditText
         android:id="@+id/edit_signup_ripeti_password"
         android:layout_width="match_parent"
@@ -84,17 +139,26 @@
         android:layout_marginTop="3dp"
         android:singleLine="true"/>
 
-    <Button
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:ellipsize="end"
+        android:gravity="center"
         android:id="@+id/btn_registrati"
-        android:layout_gravity="end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lbl_registrati"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/lime_A200"
-        android:layout_marginEnd="52.74dp"
-        android:layout_marginTop="33.35dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="@dimen/_50pxv"
+        android:layout_marginBottom="@dimen/_20pxv"
+        android:layout_marginEnd="@dimen/_24pxh"
+        android:layout_marginStart="@dimen/_24pxh"
+        android:layout_marginTop="@dimen/_41pxv"
+        android:layout_width="@dimen/_263pxh"
+        android:paddingBottom="@dimen/_13pxv"
+        android:paddingEnd="@dimen/_30pxh"
+        android:paddingStart="@dimen/_30pxh"
+        android:paddingTop="@dimen/_13pxv"
         android:singleLine="true"
+        android:text="@string/lbl_registrati"
+        android:textAllCaps="false"
+        style="@style/btnSolidRounded"
         android:drawableRight="@drawable/baseline_arrow_right_24"/>
 
 </LinearLayout>

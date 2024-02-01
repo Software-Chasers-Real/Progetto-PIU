@@ -50,5 +50,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_informazioni_personali">Informazioni personali</string>
+    <string name="lbl_cognome">Cognome</string>
+    <string name="lbl_nome">Nome</string>
 
 </resources>

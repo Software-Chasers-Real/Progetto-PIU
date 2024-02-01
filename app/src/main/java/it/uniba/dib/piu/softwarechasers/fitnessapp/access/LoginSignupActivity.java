@@ -1,5 +1,6 @@
 package it.uniba.dib.piu.softwarechasers.fitnessapp.access;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.TextView;
 

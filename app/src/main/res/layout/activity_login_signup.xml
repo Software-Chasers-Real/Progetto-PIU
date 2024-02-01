@@ -23,21 +23,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lbl_accedi"
-            android:textColor="@color/black"
             android:paddingBottom="4dp"
             android:background="@drawable/bordo_bottom_giallo"
             android:clickable="true"
-            style="@style/txtOpenSansopensanssemibold19"/>
+            style="@style/txtOpenSansopensanssemibold199"/>
         <TextView
             android:id="@+id/txtRegistrati"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="@string/lbl_registrati"
-            android:textColor="@color/black"
             android:paddingBottom="4dp"
             android:clickable="true"
-            style="@style/txtOpenSansopensanssemibold19"/>
+            style="@style/txtOpenSansopensanssemibold199"/>
 
     </LinearLayout>
 </FrameLayout>
