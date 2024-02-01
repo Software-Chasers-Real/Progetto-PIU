@@ -145,7 +145,7 @@ public class SplashActivity extends AppCompatActivity {
         utente.setPeso(Float.valueOf(nuovoUtente.get("peso").toString()));
         utente.setGenere(nuovoUtente.get("genere").toString());
         utente.setEta(Integer.valueOf(nuovoUtente.get("eta").toString()));
-        if(((ArrayList<String>) nuovoUtente.get("schede")).get(0) == ""){
+        if(((ArrayList<String>) nuovoUtente.get("schede")) == null){
             utente.setIdSchede(new ArrayList<String>());
         }else{
             utente.setIdSchede((ArrayList<String>) nuovoUtente.get("schede"));

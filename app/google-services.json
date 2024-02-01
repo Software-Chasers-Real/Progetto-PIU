@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "777146680153",
+    "firebase_url": "https://fitnessapp-1db94-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "fitnessapp-1db94",
+    "storage_bucket": "fitnessapp-1db94.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777146680153:android:9fcf7379f80109f2f48248",
+        "android_client_info": {
+          "package_name": "it.uniba.dib.piu.softwarechasers.fitnessapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeQdiKowKJaixoB0VcvGltHSviSn6ZIik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
