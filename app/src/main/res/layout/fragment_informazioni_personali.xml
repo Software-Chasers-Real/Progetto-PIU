@@ -63,13 +63,17 @@
         android:singleLine="true"
         android:text="@string/lbl_email"
         tools:ignore="TextSizeCheck" />
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:paddingLeft="30dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            style="@style/txtOpenSansopensanssemibold17"/>
+    <TextView android:ellipsize="end"
+        android:id="@+id/email"
+        android:layout_gravity="start"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_48pxh"
+        android:layout_marginStart="@dimen/_48pxh"
+        android:layout_marginTop="@dimen/_5pxv"
+        android:layout_width="wrap_content"
+        android:singleLine="true"
+        style="@style/txtOpenSansopensanssemibold17"
+        />
         <View
             android:id="@+id/lineRectangle11"
             android:layout_width="@dimen/_311pxh"
@@ -93,13 +97,18 @@
         android:singleLine="true"
         android:text="@string/età"
         tools:ignore="TextSizeCheck" />
-        <TextView
-            android:id="@+id/eta"
-            android:layout_width="wrap_content"
-            android:paddingLeft="30dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            style="@style/txtOpenSansopensanssemibold17"/>
+
+    <TextView android:ellipsize="end"
+        android:id="@+id/eta"
+        android:layout_gravity="start"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_48pxh"
+        android:layout_marginStart="@dimen/_48pxh"
+        android:layout_marginTop="@dimen/_5pxv"
+        android:layout_width="wrap_content"
+        android:singleLine="true"
+        style="@style/txtOpenSansopensanssemibold17"
+        />
         <View
             android:id="@+id/lineRectangle12"
             android:layout_width="@dimen/_311pxh"
@@ -124,13 +133,18 @@
         android:text="@string/peso"
         tools:ignore="TextSizeCheck" />
 
-        <TextView
-            android:id="@+id/peso"
-            android:layout_width="wrap_content"
-            android:paddingLeft="30dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            style="@style/txtOpenSansopensanssemibold17"/>
+    <TextView
+        android:ellipsize="end"
+        android:id="@+id/peso"
+        android:layout_gravity="start"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_48pxh"
+        android:layout_marginStart="@dimen/_48pxh"
+        android:layout_marginTop="@dimen/_5pxv"
+        android:layout_width="wrap_content"
+        android:singleLine="true"
+        style="@style/txtOpenSansopensanssemibold17"
+        />
 
         <View
             android:id="@+id/lineRectangle13"

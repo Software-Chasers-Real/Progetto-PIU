@@ -51,7 +51,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Esegui il logout e passa a un nuovo fragment utilizzando il Navigation Component
-                FirebaseAuth.getInstance().signOut();
+                FirebaseAuth.getInstance();
                 Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main)
                         .navigate(R.id.navigation_informazioni_personali);
             }
@@ -60,14 +60,6 @@ public class AccountFragment extends Fragment {
         return root;
     }
 
-    // Funzione per mostrare un nuovo fragment
-    private void showFragment(Fragment fragment) {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.nav_host_fragment_activity_main, fragment);
-        transaction.addToBackStack(null);  // Aggiunge la transazione allo stack per consentire il back
-        transaction.commit();
-    }
 
     @Override
     public void onDestroyView() {
