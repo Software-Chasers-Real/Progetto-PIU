@@ -4,26 +4,31 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:title="@string/title_home"
+        android:iconTint="#f0eee9"/>
 
     <item
         android:id="@+id/navigation_sale"
-        android:icon="@drawable/gym_svgrepo_com"
-        android:title="@string/title_sale" />
+        android:icon="@drawable/dumbell_fitness_svgrepo_com"
+        android:title="@string/title_sale"
+        android:iconTint="#f0eee9"/>
 
     <item
         android:id="@+id/navigation_coach"
         android:icon="@drawable/muscle_svgrepo_com"
-        android:title="@string/title_coach" />
+        android:title="@string/title_coach"
+        android:iconTint="#f0eee9"/>
 
     <item
         android:id="@+id/navigation_schede"
         android:icon="@drawable/alt_center_align_svgrepo_com"
-        android:title="@string/title_schede" />
+        android:title="@string/title_schede"
+        android:iconTint="#f0eee9"/>
 
     <item
         android:id="@+id/navigation_account"
         android:icon="@drawable/baseline_account_circle_24"
-        android:title="@string/title_account" />
+        android:title="@string/title_account"
+        android:iconTint="#f0eee9"/>
 
 </menu>

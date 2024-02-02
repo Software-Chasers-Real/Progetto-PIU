@@ -97,8 +97,10 @@ public class DettaglioSchedeFragment extends Fragment implements EserciziListene
         Button btnCalorie = view.findViewById(R.id.calorie_dettaglio_bottone);
         TextView txtDescrizione = view.findViewById(R.id.descr_dettaglio_scheda);
         ExtendedFloatingActionButton fabAggiungiScheda = view.findViewById(R.id.fab_aggiungi_scheda);
+        ExtendedFloatingActionButton fabEliminaScheda = view.findViewById(R.id.fab_rimuovi_scheda);
         if(bottoneVisibile == false){
             fabAggiungiScheda.setVisibility(View.GONE);
+            fabEliminaScheda.setVisibility(View.VISIBLE);
         }else{
             fabAggiungiScheda.setOnClickListener(v -> {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -124,6 +126,27 @@ public class DettaglioSchedeFragment extends Fragment implements EserciziListene
                         });
             });
         }
+
+        fabEliminaScheda.setOnClickListener(v -> {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            if(mActvity.utente.getIdSchede().size() == 1){
+                mActvity.utente.getIdSchede().clear();
+            }else{
+                mActvity.utente.getIdSchede().remove(schedaSelezionata.getIdDatabase());
+            }
+            db.collection("utenti")
+                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .update("schede", mActvity.utente.getIdSchede()).addOnSuccessListener(aVoid -> {
+                        Log.d("DettaglioSchedaFragment", "Scheda rimossa");
+                        Toast.makeText(mActvity.getApplicationContext(), "Scheda rimossa con successo", Toast.LENGTH_SHORT).show();
+                        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                        navController.navigate(R.id.navigation_schede);
+                    }
+            ).addOnFailureListener(e -> {
+                Log.d("DettaglioSchedaFragment", "Errore rimozione scheda");
+                Toast.makeText(mActvity.getApplicationContext(), "Errore rimozione scheda", Toast.LENGTH_SHORT).show();
+            });
+        });
 
 
         sfondo.setImageDrawable(schedaSelezionata.getImmagineScheda());

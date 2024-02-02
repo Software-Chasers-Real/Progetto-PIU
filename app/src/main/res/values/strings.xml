@@ -57,6 +57,9 @@
     <string name="video_spiegazione">Video spiegazione</string>
     <string name="dettaglio_esercizio">Dettaglio esercizio</string>
     <string name="purtroppo_il_video_non_ancora_disponibile">Purtroppo il video non è ancora disponibile</string>
+    <string name="inserisci_il_nome">Inserisci il nome</string>
+    <string name="inserisci_il_cognome">Inserisci il cognome</string>
+    <string name="rimuovi_scheda">Rimuovi scheda</string>
 
 
 </resources>

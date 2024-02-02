@@ -13,7 +13,7 @@
         android:gravity="center_horizontal"
         android:lineSpacingExtra="16.48dp"
         android:singleLine="true"
-        android:text="@string/come_ti_chiami"
+        android:text="Come ti chiami?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
         android:layout_marginTop="24dp"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="2.2dp"
-        android:text="@string/inserisci_qui_il_tuo_nome_e_cognome"
+        android:text="Inserisci il tuo nome e cognome"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:layout_editor_absoluteX="0dp" />
 

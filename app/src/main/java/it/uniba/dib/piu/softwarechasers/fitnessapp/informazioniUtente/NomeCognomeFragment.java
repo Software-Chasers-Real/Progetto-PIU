@@ -107,14 +107,14 @@ public class NomeCognomeFragment extends Fragment {
                 String cognomeStr = cognome.getText().toString();
 
                 if (nomeStr.isEmpty()) {
-                    txtNome.setText(R.string.inserisci_il_tuo_nome);
+                    txtNome.setText(R.string.inserisci_il_nome);
                     txtNome.setTextColor(getResources().getColor(R.color.red));
                     txtNome.setVisibility(View.VISIBLE);
                     error = true;
                 }
 
                 if (cognomeStr.isEmpty()) {
-                    txtCognome.setText(R.string.lbl_inserisci_password);
+                    txtCognome.setText("Inserisci il cognome");
                     txtCognome.setTextColor(getResources().getColor(R.color.red));
                     txtCognome.setVisibility(View.VISIBLE);
                     error = true;

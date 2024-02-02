@@ -15,7 +15,10 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -147,9 +150,9 @@ public class LoginFragment extends Fragment {
                                                 utente.setPeso(Float.valueOf(nuovoUtente.get("peso").toString()));
                                                 utente.setGenere(nuovoUtente.get("genere").toString());
                                                 utente.setEta(Integer.valueOf(nuovoUtente.get("eta").toString()));
-                                                if(((ArrayList<String>) nuovoUtente.get("schede")) == null){
+                                                if (((ArrayList<String>) nuovoUtente.get("schede")) == null) {
                                                     utente.setIdSchede(new ArrayList<String>());
-                                                }else{
+                                                } else {
                                                     utente.setIdSchede((ArrayList<String>) nuovoUtente.get("schede"));
                                                 }
 
@@ -173,12 +176,36 @@ public class LoginFragment extends Fragment {
                                             }
                                         } else {
                                             //stampa nel log un messaggio di errore
-                                            Log.d("SplashActivity", "Task fallito");
+                                            if (task.getException() instanceof FirebaseAuthException) {
+                                                // Errore durante il login, potrebbe essere una password errata
+                                                FirebaseAuthException e = (FirebaseAuthException) task.getException();
+                                                Log.e("LoginFragment", "Errore durante il login: " + e.getMessage());
+                                                // Controlla il codice dell'errore per determinare la causa specifica
+                                                String errorCode = e.getErrorCode();
+                                                if (errorCode.equals("ERROR_WRONG_PASSWORD")) {
+                                                    // Password errata
+                                                    Log.w("LoginFragment", "Password errata per l'email fornita.");
+                                                    // Aggiungi qui la tua logica per gestire il caso di password errata
+                                                } else {
+                                                    // Altri tipi di errore durante il login
+                                                    Log.w("LoginFragment", "Errore durante il login", e);
+                                                }
+                                            }
                                         }
                                     });
                         })
                         .addOnFailureListener(mActivity, e -> {
-                            Toast.makeText(mActivity, "Login fallito", Toast.LENGTH_SHORT).show();
+                            Log.e("LoginFragment", "Errore durante il login "+e);
+                            if(e instanceof  FirebaseAuthInvalidCredentialsException){
+                                txtLoginPassword.setText("Password errata");
+                                txtLoginPassword.setTextColor(getResources().getColor(R.color.red));
+                                txtLoginPassword.setVisibility(View.VISIBLE);
+                            } else if (e instanceof FirebaseTooManyRequestsException) {
+                                Toast.makeText(mActivity, "Hai effettuato troppe richieste, attendi qualche minuto.", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(mActivity, "Login fallito.", Toast.LENGTH_SHORT).show();
+                            }
+
                         });
             }
         });
