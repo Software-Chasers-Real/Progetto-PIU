@@ -54,6 +54,7 @@
                 android:layout_marginLeft="6dp"
                 android:text="Tempo" />
 
+
             <TextView
                 android:id="@+id/calorie_scheda"
                 style="@style/txtOpenSansopensansregular12"

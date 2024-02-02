@@ -63,7 +63,7 @@ public class PesoFragment extends Fragment {
         Button btnIndietro = view.findViewById(R.id.btn_indietro_peso);
 
         pesoPicker.setMinValue(20);
-        pesoPicker.setMaxValue(500);
+        pesoPicker.setMaxValue(150);
         pesoPicker.setValue(20);
 
         // Imposta il colore del testo

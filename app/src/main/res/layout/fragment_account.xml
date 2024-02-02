@@ -211,7 +211,7 @@
                 android:textSize="28dp"
                 android:paddingBottom="@dimen/_10pxv"
                 android:singleLine="true"
-                android:textColorHint="@color/red"
+                android:textColorHint="#de1414"
                 tools:ignore="TouchTargetSizeCheck"
                 android:backgroundTint="@color/colorBorderBottomNav"/>
         </LinearLayout>

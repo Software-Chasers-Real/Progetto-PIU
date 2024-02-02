@@ -16,13 +16,21 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 import it.uniba.dib.piu.softwarechasers.fitnessapp.informazioniUtente.InfromazioniUtenteActivity;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.R;
+import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Scheda;
+import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Utente;
 
 public class SignupFragment extends Fragment {
     private LoginSignupActivity mActivity;
 
     private FirebaseAuth auth;
+
+    private ArrayList<Scheda> schede;
+
+    private Utente utente;
 
     @Override
     public void onAttach(Context context) {
@@ -34,6 +42,17 @@ public class SignupFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
+
+        utente = new Utente();
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            if(bundle.containsKey("schede")) {
+                schede = bundle.getParcelableArrayList("schede");
+            }
+        }else{
+            schede = new ArrayList<>();
+        }
     }
 
     @Override

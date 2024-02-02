@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
@@ -62,9 +63,10 @@ public class LoginSignupActivity extends AppCompatActivity {
             accediText.setBackground(null);
             registratiText.setBackgroundResource(R.drawable.bordo_bottom_giallo);
 
+            SignupFragment signupFragment = new SignupFragment();
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
-                    .replace(R.id.fragment_login_signup, SignupFragment.class, null)
+                    .replace(R.id.fragment_login_signup, signupFragment, null)
                     .commit();
         });
     }

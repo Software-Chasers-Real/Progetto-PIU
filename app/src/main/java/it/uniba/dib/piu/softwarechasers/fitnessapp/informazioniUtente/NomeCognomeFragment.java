@@ -86,12 +86,12 @@ public class NomeCognomeFragment extends Fragment {
                 // L'EditText ha ottenuto il focus
                 cognome.setHint("");
                 txtCognome.setTextColor(getResources().getColor(R.color.lime_A200));
-                txtCognome.setText(R.string.lbl_password);
+                txtCognome.setText(R.string.lbl_cognome);
                 txtCognome.setVisibility(View.VISIBLE);
             } else {
                 // L'EditText ha perso il focus
                 if(cognome.getText().toString().isEmpty()) {
-                    txtCognome.setHint(R.string.lbl_password);
+                    txtCognome.setHint(R.string.lbl_cognome);
                     txtCognome.setVisibility(View.INVISIBLE);
                 }
             }
