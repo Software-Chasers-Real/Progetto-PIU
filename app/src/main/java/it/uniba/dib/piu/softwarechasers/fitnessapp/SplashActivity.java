@@ -99,8 +99,7 @@ public class SplashActivity extends AppCompatActivity {
             // Utente non loggato
             loggato = false;
             profiloCompletato = false;
-            fecthCompletato = true;
-            startMainActivity(); // Chiamare startMainActivity anche se non è loggato
+            fetchSchede();
         }
     }
 
@@ -132,7 +131,7 @@ public class SplashActivity extends AppCompatActivity {
                         Log.d("SplashActivity", "Task fallito");
                         loggato = false;
                         profiloCompletato = false;
-                        startMainActivity();
+                        fetchSchede();
                     }
                 });
     }
@@ -140,6 +139,8 @@ public class SplashActivity extends AppCompatActivity {
     //metodo che recupera le informazioni dell'utente dal database
     private void popolaOggettoUtente(DocumentSnapshot document) {
         Map<String, Object> nuovoUtente = document.getData();
+        utente.setNome(nuovoUtente.get("nome").toString());
+        utente.setCognome(nuovoUtente.get("cognome").toString());
         utente.setEmail(nuovoUtente.get("email").toString());
         utente.setAltezza(Float.valueOf(nuovoUtente.get("altezza").toString()));
         utente.setPeso(Float.valueOf(nuovoUtente.get("peso").toString()));
@@ -195,16 +196,23 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startMainActivity() {
+        Bundle bundle = new Bundle();
         if(loggato == false && profiloCompletato == false) {
             Log.d("SplashActivity", "Login lanciata");
-            startActivity(new Intent(this, LoginSignupActivity.class));
+            bundle.putParcelableArrayList("schede", schede);
+            Intent intent = new Intent(this, LoginSignupActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
             finish();
         }else if(loggato == true && profiloCompletato == false){
             Log.d("SplashActivity", "Profilo lanciata");
-            startActivity(new Intent(this, InfromazioniUtenteActivity.class));
+            bundle.putParcelable("utente", utente);
+            bundle.putParcelableArrayList("schede", schede);
+            Intent intent = new Intent(this, InfromazioniUtenteActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
             finish();
         }else if(loggato == true && profiloCompletato == true){
-            Bundle bundle = new Bundle();
             bundle.putParcelable("utente", utente);
             bundle.putParcelableArrayList("schede", schede);
             Log.d("SplashActivity", "Grandezza schede "+schede.size());

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Utente implements Parcelable {
+    private String nome;
+    private String cognome;
     private String email;
     private String genere;
     private int eta;
@@ -19,7 +21,9 @@ public class Utente implements Parcelable {
     public Utente() {
     }
 
-    public Utente(String email, String genere, int eta, float peso, float altezza, List<String> idSchede){
+    public Utente(String nome,String cognome,String email, String genere, int eta, float peso, float altezza, List<String> idSchede){
+        this.nome = nome;
+        this.cognome = cognome;
         this.email = email;
         this.genere = genere;
         this.eta = eta;
@@ -29,6 +33,8 @@ public class Utente implements Parcelable {
     }
 
     protected Utente(Parcel in) {
+        nome = in.readString();
+        cognome = in.readString();
         email = in.readString();
         genere = in.readString();
         eta = in.readInt();
@@ -53,6 +59,22 @@ public class Utente implements Parcelable {
             return new Utente[size];
         }
     };
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
 
     public String getEmail() {
         return email;
@@ -109,6 +131,8 @@ public class Utente implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(nome);
+        parcel.writeString(cognome);
         parcel.writeString(email);
         parcel.writeString(genere);
         parcel.writeInt(eta);

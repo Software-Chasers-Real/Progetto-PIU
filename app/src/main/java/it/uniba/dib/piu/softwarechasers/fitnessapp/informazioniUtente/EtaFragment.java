@@ -17,13 +17,16 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import it.uniba.dib.piu.softwarechasers.fitnessapp.R;
+import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Scheda;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Utente;
 
 public class EtaFragment extends Fragment {
     private InfromazioniUtenteActivity mActivity;
     private Utente newUtente;
+    private ArrayList<Scheda> schede;
 
     @Override
     public void onAttach(Context context) {
@@ -46,6 +49,10 @@ public class EtaFragment extends Fragment {
         if (bundle != null) {
             newUtente = (Utente) bundle.getParcelable("utente");
             Log.d("EtaFragment", "Utente con email: " + newUtente.getEmail() + " e genere: " + newUtente.getGenere());
+            if(bundle.containsKey("schede")) {
+                Log.d("MainActivity", "Bundle ricevuto");
+                schede = bundle.getParcelableArrayList("schede");
+            }
         }
 
         return view;
@@ -68,6 +75,7 @@ public class EtaFragment extends Fragment {
 
             Bundle bundle = new Bundle();
             bundle.putParcelable("utente", newUtente);
+            bundle.putParcelableArrayList("schede", schede);
             PesoFragment pesoFragment = new PesoFragment();
             pesoFragment.setArguments(bundle);
 
@@ -82,6 +90,7 @@ public class EtaFragment extends Fragment {
 
             Bundle bundle = new Bundle();
             bundle.putParcelable("utente", newUtente);
+            bundle.putParcelableArrayList("schede", schede);
             GenereFragment genereFragment = new GenereFragment();
             genereFragment.setArguments(bundle);
 

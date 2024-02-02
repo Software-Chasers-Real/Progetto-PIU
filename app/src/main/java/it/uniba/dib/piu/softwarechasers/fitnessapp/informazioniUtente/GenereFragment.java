@@ -11,13 +11,17 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+
 import it.uniba.dib.piu.softwarechasers.fitnessapp.R;
+import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Scheda;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Utente;
 
 public class GenereFragment extends Fragment {
 
     private InfromazioniUtenteActivity mActivity;
     private Utente newUtente;
+    private ArrayList<Scheda> schede;
     private Boolean uomo = false;
     private Boolean donna = false;
 
@@ -30,21 +34,26 @@ public class GenereFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_genere, container, false);
+        super.onCreate(savedInstanceState);
 
         // Recupera l'oggetto dal Bundle
         Bundle bundle = getArguments();
         if (bundle != null) {
             newUtente = (Utente) bundle.getParcelable("utente");
             Log.d("GenereFragment", "Utente con email: " + newUtente.getEmail());
+            if(bundle.containsKey("schede")) {
+                Log.d("MainActivity", "Bundle ricevuto");
+                schede = bundle.getParcelableArrayList("schede");
+            }
         }else{
             Log.d("GenereFragment", "Bundle null");
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_genere, container, false);
 
         return view;
     }
@@ -94,6 +103,7 @@ public class GenereFragment extends Fragment {
                 Log.d("GenereFragment", "Utente email: " + newUtente.getEmail() + " genere: " + newUtente.getGenere());
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("utente", newUtente);
+                bundle.putParcelableArrayList("schede", schede);
                 EtaFragment etaFragment = new EtaFragment();
                 etaFragment.setArguments(bundle);
 
@@ -105,6 +115,21 @@ public class GenereFragment extends Fragment {
             }else{
                 txtErrGenere.setVisibility(View.VISIBLE);
             }
+        });
+
+        Button btnIndietro = view.findViewById(R.id.btn_indietro_genere);
+        btnIndietro.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("utente", newUtente);
+            bundle.putParcelableArrayList("schede", schede);
+            NomeCognomeFragment nomeCognomeFragment = new NomeCognomeFragment();
+            nomeCognomeFragment.setArguments(bundle);
+
+            mActivity.getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .replace(R.id.fragment_informativa_utente, nomeCognomeFragment, null)
+                    .addToBackStack(null)
+                    .commit();
         });
     }
 }

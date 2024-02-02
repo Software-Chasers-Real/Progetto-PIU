@@ -1,17 +1,22 @@
 package it.uniba.dib.piu.softwarechasers.fitnessapp.informazioniUtente;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 import it.uniba.dib.piu.softwarechasers.fitnessapp.R;
+import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Scheda;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Utente;
 
 public class InfromazioniUtenteActivity extends AppCompatActivity {
     private Utente newUtente;
     private FirebaseAuth auth;
+    private ArrayList<Scheda> schede;
     @Override
     protected void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,14 +25,25 @@ public class InfromazioniUtenteActivity extends AppCompatActivity {
         newUtente = new Utente();
         newUtente.setEmail(auth.getCurrentUser().getEmail());
 
+        Bundle ricevutoBundle = getIntent().getExtras();
+        if (ricevutoBundle != null) {
+            if(ricevutoBundle.containsKey("schede")) {
+                Log.d("MainActivity", "Bundle ricevuto");
+                schede = ricevutoBundle.getParcelableArrayList("schede");
+            }
+        }else{
+            Log.d("MainActivity", "Bundle non ricevuto");
+        }
+
         Bundle bundle = new Bundle();
         bundle.putParcelable("utente", newUtente);
-        GenereFragment genereFragment = new GenereFragment();
-        genereFragment.setArguments(bundle);
+        bundle.putParcelableArrayList("schede", schede);
+        NomeCognomeFragment nomeCognomeFragment = new NomeCognomeFragment();
+        nomeCognomeFragment.setArguments(bundle);
 
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_informativa_utente, genereFragment, null)
+                .add(R.id.fragment_informativa_utente, nomeCognomeFragment, null)
                 .commit();
     }
 }

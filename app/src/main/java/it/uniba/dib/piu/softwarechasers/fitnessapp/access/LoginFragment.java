@@ -3,6 +3,7 @@ package it.uniba.dib.piu.softwarechasers.fitnessapp.access;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +16,24 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 import it.uniba.dib.piu.softwarechasers.fitnessapp.MainActivity;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.R;
+import it.uniba.dib.piu.softwarechasers.fitnessapp.informazioniUtente.InfromazioniUtenteActivity;
+import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Scheda;
+import it.uniba.dib.piu.softwarechasers.fitnessapp.model.Utente;
 
 public class LoginFragment extends Fragment {
     private LoginSignupActivity mActivity;
+    private ArrayList<Scheda> schede;
 
     private FirebaseAuth auth;
+
+    private Utente utente;
 
     @Override
     public void onAttach(Context context) {
@@ -34,6 +45,16 @@ public class LoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
+        utente = new Utente();
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            if(bundle.containsKey("schede")) {
+                schede = bundle.getParcelableArrayList("schede");
+            }
+        }else{
+            schede = new ArrayList<>();
+        }
     }
 
     @Override
@@ -109,9 +130,52 @@ public class LoginFragment extends Fragment {
             }else{
                 auth.signInWithEmailAndPassword(email, password)
                         .addOnSuccessListener(mActivity, authResult -> {
-                            Toast.makeText(mActivity, "Login esguito", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(mActivity, MainActivity.class));
-                            mActivity.finish();
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            db.collection("utenti")
+                                    .document(auth.getCurrentUser().getUid())
+                                    .get()
+                                    .addOnCompleteListener(task -> {
+                                        if (task.isSuccessful()) {
+                                            if (task.getResult().exists()) {
+                                                //l'utente ha completato il profilo
+                                                //eseguo il retrieve dei suoi dati
+                                                Map<String, Object> nuovoUtente = task.getResult().getData();
+                                                utente.setNome(nuovoUtente.get("nome").toString());
+                                                utente.setCognome(nuovoUtente.get("cognome").toString());
+                                                utente.setEmail(nuovoUtente.get("email").toString());
+                                                utente.setAltezza(Float.valueOf(nuovoUtente.get("altezza").toString()));
+                                                utente.setPeso(Float.valueOf(nuovoUtente.get("peso").toString()));
+                                                utente.setGenere(nuovoUtente.get("genere").toString());
+                                                utente.setEta(Integer.valueOf(nuovoUtente.get("eta").toString()));
+                                                if(((ArrayList<String>) nuovoUtente.get("schede")) == null){
+                                                    utente.setIdSchede(new ArrayList<String>());
+                                                }else{
+                                                    utente.setIdSchede((ArrayList<String>) nuovoUtente.get("schede"));
+                                                }
+
+                                                Log.d("AltezzaFragment", "Utente aggiunto al db");
+                                                Bundle bundle = new Bundle();
+                                                bundle.putParcelable("utente", utente);
+                                                bundle.putParcelableArrayList("schede", schede);
+                                                Intent intent = new Intent(mActivity, MainActivity.class);
+                                                intent.putExtras(bundle);
+                                                startActivity(intent);
+                                                mActivity.finish();
+
+                                            } else {
+                                                //l'utente non ha completato il profilo
+                                                Bundle bundle = new Bundle();
+                                                bundle.putParcelableArrayList("schede", schede);
+                                                Intent intent = new Intent(mActivity, InfromazioniUtenteActivity.class);
+                                                intent.putExtras(bundle);
+                                                startActivity(intent);
+                                                mActivity.finish();
+                                            }
+                                        } else {
+                                            //stampa nel log un messaggio di errore
+                                            Log.d("SplashActivity", "Task fallito");
+                                        }
+                                    });
                         })
                         .addOnFailureListener(mActivity, e -> {
                             Toast.makeText(mActivity, "Login fallito", Toast.LENGTH_SHORT).show();

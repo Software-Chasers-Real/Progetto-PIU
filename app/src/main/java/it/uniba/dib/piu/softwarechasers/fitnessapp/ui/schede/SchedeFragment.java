@@ -26,6 +26,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import it.uniba.dib.piu.softwarechasers.fitnessapp.MainActivity;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.R;
@@ -37,6 +38,7 @@ public class SchedeFragment extends Fragment implements SchedeListener {
 
     private MainActivity mActvity;
     private FragmentSchedeBinding binding;
+    private ArrayList<Scheda> schedeUtente;
     private static int NUMERO_SCHEDE = 0;
     private static int NUMERO_IMMAGINI_SCARICATE = 0;
     private  static final int FECTH_TERMINATO = 1;
@@ -84,51 +86,55 @@ public class SchedeFragment extends Fragment implements SchedeListener {
     private void recuperaImmaginiSchede(){
         FirebaseStorage storage = FirebaseStorage.getInstance();
         NUMERO_IMMAGINI_SCARICATE = 0;
+        schedeUtente = new ArrayList<>();
         for (Scheda scheda : mActvity.schede) {
-            if (scheda.getImmagineScheda() != null) {
-                NUMERO_IMMAGINI_SCARICATE++;
-                if (NUMERO_IMMAGINI_SCARICATE == NUMERO_SCHEDE) {
-                    mHandler.sendEmptyMessage(FECTH_TERMINATO);
-                }
-            } else {
-                StorageReference storageRef = storage.getReference(scheda.getRiferimentoImmagineScheda());
+            if(mActvity.utente.getIdSchede().contains(scheda.getIdDatabase())){
+                schedeUtente.add(scheda);
+                if (scheda.getImmagineScheda() != null) {
+                    NUMERO_IMMAGINI_SCARICATE++;
+                    if (NUMERO_IMMAGINI_SCARICATE == NUMERO_SCHEDE) {
+                        mHandler.sendEmptyMessage(FECTH_TERMINATO);
+                    }
+                } else {
+                    StorageReference storageRef = storage.getReference(scheda.getRiferimentoImmagineScheda());
 
-                File localFile = null;
-                try {
-                    localFile = File.createTempFile("images", ".jpg");
+                    File localFile = null;
+                    try {
+                        localFile = File.createTempFile("images", ".jpg");
 
-                    File finalLocalFile = localFile;
-                    storageRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
-                        // Immagine scaricata
-                        Log.d("SchedeAdapter", "Immagine scaricata par o pesc");
-                        Bitmap myBitmap = BitmapFactory.decodeFile(finalLocalFile.getAbsolutePath());
-                        Drawable myDrawable = new BitmapDrawable(getResources(), myBitmap);
-                        scheda.setImmagineScheda(myDrawable);
-                        NUMERO_IMMAGINI_SCARICATE++;
-                        if (NUMERO_IMMAGINI_SCARICATE == NUMERO_SCHEDE) {
-                            mHandler.sendEmptyMessage(FECTH_TERMINATO);
-                        }
-                    }).addOnFailureListener(exception -> {
-                        // Immagine non scaricata
-                        Log.d("SchedeAdapter", "Immagine non scaricata par a uallr");
-                        NUMERO_IMMAGINI_SCARICATE++;
-                        if (NUMERO_IMMAGINI_SCARICATE == NUMERO_SCHEDE) {
-                            mHandler.sendEmptyMessage(FECTH_TERMINATO);
-                        }
-                    });
+                        File finalLocalFile = localFile;
+                        storageRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+                            // Immagine scaricata
+                            Log.d("SchedeAdapter", "Immagine scaricata par o pesc");
+                            Bitmap myBitmap = BitmapFactory.decodeFile(finalLocalFile.getAbsolutePath());
+                            Drawable myDrawable = new BitmapDrawable(getResources(), myBitmap);
+                            scheda.setImmagineScheda(myDrawable);
+                            NUMERO_IMMAGINI_SCARICATE++;
+                            if (NUMERO_IMMAGINI_SCARICATE == NUMERO_SCHEDE) {
+                                mHandler.sendEmptyMessage(FECTH_TERMINATO);
+                            }
+                        }).addOnFailureListener(exception -> {
+                            // Immagine non scaricata
+                            Log.d("SchedeAdapter", "Immagine non scaricata par a uallr");
+                            NUMERO_IMMAGINI_SCARICATE++;
+                            if (NUMERO_IMMAGINI_SCARICATE == NUMERO_SCHEDE) {
+                                mHandler.sendEmptyMessage(FECTH_TERMINATO);
+                            }
+                        });
 
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
-        }
+            }
     }
 
     private void visualizzaSchede() {
         //ottieni il riferimento alla recycler view
         RecyclerView recyclerView = getView().findViewById(R.id.schede_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(mActvity.getApplicationContext()));
-        recyclerView.setAdapter(new SchedeAdapter(mActvity.getApplicationContext(), mActvity.schede, SchedeFragment.this));
+        recyclerView.setAdapter(new SchedeAdapter(mActvity.getApplicationContext(), schedeUtente, SchedeFragment.this));
     }
 
     @Override
