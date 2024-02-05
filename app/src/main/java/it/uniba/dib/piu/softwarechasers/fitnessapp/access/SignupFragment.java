@@ -3,6 +3,7 @@ package it.uniba.dib.piu.softwarechasers.fitnessapp.access;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import it.uniba.dib.piu.softwarechasers.fitnessapp.informazioniUtente.InfromazioniUtenteActivity;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.R;
@@ -49,6 +51,7 @@ public class SignupFragment extends Fragment {
         if (bundle != null) {
             if(bundle.containsKey("schede")) {
                 schede = bundle.getParcelableArrayList("schede");
+                Log.d("SignupFragment", "schede: " + schede.size());
             }
         }else{
             schede = new ArrayList<>();
@@ -144,6 +147,11 @@ public class SignupFragment extends Fragment {
                     txtSignupPassword.setTextColor(getResources().getColor(R.color.red));
                     txtSignupPassword.setVisibility(View.VISIBLE);
                     error = true;
+                }else if (password.length() < 6){
+                    txtSignupPassword.setText(R.string.la_password_deve_essere_di_almeno_6_caratteri);
+                    txtSignupPassword.setTextColor(getResources().getColor(R.color.red));
+                    txtSignupPassword.setVisibility(View.VISIBLE);
+                    error = true;
                 }
 
                 if(passwordConfirm.isEmpty()){
@@ -151,9 +159,7 @@ public class SignupFragment extends Fragment {
                     txtSignupPasswordConfirm.setTextColor(getResources().getColor(R.color.red));
                     txtSignupPasswordConfirm.setVisibility(View.VISIBLE);
                     error = true;
-                }
-
-                if(password.equals(passwordConfirm) == false){
+                }else if(password.equals(passwordConfirm) == false){
                     txtSignupPasswordConfirm.setText(R.string.lbl_password_non_corrispondenti);
                     txtSignupPasswordConfirm.setTextColor(getResources().getColor(R.color.red));
                     txtSignupPasswordConfirm.setVisibility(View.VISIBLE);
@@ -168,7 +174,11 @@ public class SignupFragment extends Fragment {
                                 if (task.isSuccessful()) {
                                     //Registrazione avvenuta con successo
                                     Toast.makeText(mActivity, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(mActivity, InfromazioniUtenteActivity.class));
+                                    Bundle bundle = new Bundle();
+                                    bundle.putParcelableArrayList("schede", schede);
+                                    Intent intent = new Intent(mActivity, InfromazioniUtenteActivity.class);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
                                     mActivity.finish();
                                 } else {
                                     //Registrazione fallita

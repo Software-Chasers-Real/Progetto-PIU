@@ -28,8 +28,8 @@ public class InfromazioniUtenteActivity extends AppCompatActivity {
         Bundle ricevutoBundle = getIntent().getExtras();
         if (ricevutoBundle != null) {
             if(ricevutoBundle.containsKey("schede")) {
-                Log.d("MainActivity", "Bundle ricevuto");
                 schede = ricevutoBundle.getParcelableArrayList("schede");
+                Log.d("InformazioniUtenteActivity", "schede: " + schede.size() );
             }
         }else{
             Log.d("MainActivity", "Bundle non ricevuto");

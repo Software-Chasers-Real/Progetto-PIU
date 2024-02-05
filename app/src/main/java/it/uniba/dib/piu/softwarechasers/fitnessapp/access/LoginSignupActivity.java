@@ -24,6 +24,7 @@ public class LoginSignupActivity extends AppCompatActivity {
         if (ricevutoBundle != null) {
             if(ricevutoBundle.containsKey("schede")) {
                 schede = ricevutoBundle.getParcelableArrayList("schede");
+                Log.d("LoginSignupActivity", "schede: " + schede.size() );
             }
         }
         Bundle bundle = new Bundle();
@@ -63,7 +64,10 @@ public class LoginSignupActivity extends AppCompatActivity {
             accediText.setBackground(null);
             registratiText.setBackgroundResource(R.drawable.bordo_bottom_giallo);
 
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("schede", schede);
             SignupFragment signupFragment = new SignupFragment();
+            signupFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
                     .replace(R.id.fragment_login_signup, signupFragment, null)

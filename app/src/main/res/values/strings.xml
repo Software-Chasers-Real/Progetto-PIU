@@ -60,6 +60,7 @@
     <string name="inserisci_il_nome">Inserisci il nome</string>
     <string name="inserisci_il_cognome">Inserisci il cognome</string>
     <string name="rimuovi_scheda">Rimuovi scheda</string>
+    <string name="la_password_deve_essere_di_almeno_6_caratteri">La password deve essere di almeno 6 caratteri</string>
 
 
 </resources>

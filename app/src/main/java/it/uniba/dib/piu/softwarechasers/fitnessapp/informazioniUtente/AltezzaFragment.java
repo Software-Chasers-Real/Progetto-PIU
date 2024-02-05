@@ -112,6 +112,7 @@ public class AltezzaFragment extends Fragment {
             nuovoUtente.put("eta", newUtente.getEta());
             nuovoUtente.put("peso", newUtente.getPeso());
             nuovoUtente.put("altezza", newUtente.getAltezza());
+            nuovoUtente.put("schede", new ArrayList<>());
             db.collection("utenti")
                     .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .set(nuovoUtente)

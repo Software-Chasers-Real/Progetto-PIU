@@ -49,8 +49,8 @@ public class GenereFragment extends Fragment {
             newUtente = (Utente) bundle.getParcelable("utente");
             Log.d("GenereFragment", "Utente con email: " + newUtente.getEmail());
             if(bundle.containsKey("schede")) {
-                Log.d("MainActivity", "Bundle ricevuto");
                 schede = bundle.getParcelableArrayList("schede");
+                Log.d("GenereFragment", "schede: " + schede.size());
             }
         }else{
             Log.d("GenereFragment", "Bundle null");

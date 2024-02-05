@@ -72,8 +72,8 @@ public class EtaFragment extends Fragment {
             newUtente = (Utente) bundle.getParcelable("utente");
             Log.d("EtaFragment", "Utente con email: " + newUtente.getEmail() + " e genere: " + newUtente.getGenere());
             if(bundle.containsKey("schede")) {
-                Log.d("MainActivity", "Bundle ricevuto");
                 schede = bundle.getParcelableArrayList("schede");
+                Log.d("EtaFragment", "schede: " + schede.size());
             }
         }
 

@@ -169,7 +169,7 @@ public class SchedeFragment extends Fragment implements SchedeListener {
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
         bundle.putBoolean("bottone", false);
-        bundle.putParcelable("scheda", mActvity.schede.get(position));
+        bundle.putParcelable("scheda", schedeUtente.get(position));
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
         navController.navigate(R.id.navigation_dettaglio_schede, bundle);
     }

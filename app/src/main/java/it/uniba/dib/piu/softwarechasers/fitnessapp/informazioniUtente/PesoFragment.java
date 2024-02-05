@@ -71,8 +71,8 @@ public class PesoFragment extends Fragment {
             newUtente = (Utente) bundle.getParcelable("utente");
             Log.d("PesoFragment", "Utente con email: " + newUtente.getEmail() + " e genere: " + newUtente.getGenere()+ " e età: " + newUtente.getEta());
             if(bundle.containsKey("schede")) {
-                Log.d("MainActivity", "Bundle ricevuto");
                 schede = bundle.getParcelableArrayList("schede");
+                Log.d("PesoFragment", "schede: " + schede.size());
             }
         }
 

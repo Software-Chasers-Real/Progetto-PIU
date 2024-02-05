@@ -24,6 +24,7 @@ import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import it.uniba.dib.piu.softwarechasers.fitnessapp.MainActivity;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.R;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.access.LoginFragment;
 import it.uniba.dib.piu.softwarechasers.fitnessapp.access.LoginSignupActivity;
@@ -32,6 +33,14 @@ import it.uniba.dib.piu.softwarechasers.fitnessapp.databinding.FragmentAccountBi
 public class AccountFragment extends Fragment {
 
     private FragmentAccountBinding binding;
+    private MainActivity mActivity;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        mActivity = (MainActivity) getActivity();
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +72,11 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getActivity(), LoginSignupActivity.class));
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("schede", mActivity.schede);
+                Intent intent = new Intent(getActivity(), LoginSignupActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 getActivity().finish();
             }
         });
