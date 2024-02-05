@@ -48,9 +48,7 @@ dependencies {
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
     implementation 'androidx.webkit:webkit:1.4.0'
     implementation 'com.google.firebase:firebase-database:20.3.0'
-    implementation 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
     implementation 'com.google.android.exoplayer:exoplayer-core:2.15.0'
-    implementation 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
