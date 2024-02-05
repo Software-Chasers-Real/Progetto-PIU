@@ -64,7 +64,7 @@ public class EtaFragment extends Fragment {
         Button btnIndietro = view.findViewById(R.id.btn_indietro_eta);
 
         etaPicker.setMinValue(16);
-        etaPicker.setMaxValue(90);
+        etaPicker.setMaxValue(100);
         etaPicker.setValue(16);
 
         // Imposta il colore del testo
