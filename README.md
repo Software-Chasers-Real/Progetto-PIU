@@ -32,8 +32,4 @@
   		</a>
    	</li>
 </ul>
-
-<h1>👨‍💻 Come avviare l'app:</h1>
-
-
 </html>
