@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -51,20 +50,15 @@ public class HomeFragment extends Fragment {
                 text.setSpan(new ForegroundColorSpan(Color.parseColor("#ffffff")), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 actionBar.setTitle(text);
             }
+
+            // Aggiorna la data quando la schermata è in primo piano
+            updateCurrentDate();
         }
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        if (mActivity != null) {
-            TextView textBentornato = view.findViewById(R.id.txt_bentornato);
-            if (mActivity.utente.getGenere().equals("uomo")) {
-                textBentornato.setText("Bentornato " + mActivity.utente.getNome());
-            } else {
-                textBentornato.setText("Bentornata " + mActivity.utente.getNome());
-            }
+    private void updateCurrentDate() {
+        if (mActivity != null && isAdded()) {
+            TextView textData = requireView().findViewById(R.id.txt_data);
 
             // Ottenere la data attuale utilizzando Calendar
             Calendar calendar = Calendar.getInstance();
@@ -75,7 +69,6 @@ public class HomeFragment extends Fragment {
             String formattedDate = dateFormat.format(currentDate);
 
             // Visualizzare la data in un TextView (assumendo che tu abbia un TextView nel tuo layout)
-            TextView textData = view.findViewById(R.id.txt_data);
             textData.setText(formattedDate);
         }
     }
