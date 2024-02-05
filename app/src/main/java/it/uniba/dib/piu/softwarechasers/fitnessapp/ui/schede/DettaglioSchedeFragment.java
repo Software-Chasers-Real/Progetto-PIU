@@ -3,11 +3,15 @@ package it.uniba.dib.piu.softwarechasers.fitnessapp.ui.schede;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -83,6 +89,21 @@ public class DettaglioSchedeFragment extends Fragment implements EserciziListene
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Modifica il colore del testo del titolo nella barra dell'app
+        if (getActivity() != null) {
+            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            if (actionBar != null) {
+                // Modifica il colore del testo del titolo
+                Spannable text = new SpannableString(actionBar.getTitle());
+                text.setSpan(new ForegroundColorSpan(Color.parseColor("#ffffff")), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                actionBar.setTitle(text);
+
+                // Modifica il colore della freccia di navigazione
+                actionBar.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24); // Sostituisci con la tua icona personalizzata
+                actionBar.setHomeActionContentDescription("Back");
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
+        }
         View view = inflater.inflate(R.layout.fragment_dettaglio_scheda, container, false);
         return view;
     }
