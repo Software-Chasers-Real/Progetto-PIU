@@ -1,11 +1,13 @@
 package it.uniba.dib.piu.softwarechasers.fitnessapp;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;

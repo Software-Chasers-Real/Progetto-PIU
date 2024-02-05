@@ -29,54 +29,55 @@ public class HomeFragment extends Fragment {
     private MainActivity mActivity;
     private FragmentHomeBinding binding;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-        mActivity = (MainActivity) getActivity();
-        return root;
+        return binding.getRoot();
     }
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
 
-        // Modifica il colore del testo del titolo nella barra dell'app
-        if (getActivity() != null) {
-            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Assicurati che l'activity sia MainActivity
+        if (getActivity() instanceof MainActivity) {
+            mActivity = (MainActivity) getActivity();
+
+            // Modifica il colore del testo del titolo nella barra dell'app
+            ActionBar actionBar = mActivity.getSupportActionBar();
             if (actionBar != null) {
-                // Modifica il colore del testo del titolo
                 Spannable text = new SpannableString(actionBar.getTitle());
                 text.setSpan(new ForegroundColorSpan(Color.parseColor("#ffffff")), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 actionBar.setTitle(text);
-
-                // Modifica il colore della freccia di navigazione
-                actionBar.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24); // Sostituisci con la tua icona personalizzata
-                actionBar.setHomeActionContentDescription("Back");
-                actionBar.setDisplayHomeAsUpEnabled(true);
             }
         }
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView textBentornato= view.findViewById(R.id.txt_bentornato);
-        if(mActivity.utente.getGenere().equals("uomo")){
-            textBentornato.setText("Bentornato "+mActivity.utente.getNome());
-        }else{
-            textBentornato.setText("Bentornata "+mActivity.utente.getNome());
+
+        if (mActivity != null) {
+            TextView textBentornato = view.findViewById(R.id.txt_bentornato);
+            if (mActivity.utente.getGenere().equals("uomo")) {
+                textBentornato.setText("Bentornato " + mActivity.utente.getNome());
+            } else {
+                textBentornato.setText("Bentornata " + mActivity.utente.getNome());
+            }
+
+            // Ottenere la data attuale utilizzando Calendar
+            Calendar calendar = Calendar.getInstance();
+            Date currentDate = calendar.getTime();
+
+            // Formattare la data
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String formattedDate = dateFormat.format(currentDate);
+
+            // Visualizzare la data in un TextView (assumendo che tu abbia un TextView nel tuo layout)
+            TextView textData = view.findViewById(R.id.txt_data);
+            textData.setText(formattedDate);
         }
-
-        // Ottenere la data attuale utilizzando Calendar
-        Calendar calendar = Calendar.getInstance();
-        Date currentDate = calendar.getTime();
-
-        // Formattare la data
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String formattedDate = dateFormat.format(currentDate);
-
-        // Visualizzare la data in un TextView (assumendo che tu abbia un TextView nel tuo layout)
-        TextView textData = view.findViewById(R.id.txt_data);
-        textData.setText(formattedDate);
     }
 
     @Override
